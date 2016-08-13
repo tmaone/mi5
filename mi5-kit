@@ -54,7 +54,7 @@ mi5_init()
 
 different()
 {
-	if `diff $1 $2 2>/dev/null` ; then
+	if ! `diff $1 $2 > /dev/null` ; then
 	  return 0
 	else
 	  return 1
@@ -87,7 +87,8 @@ export ANDROID_CCACHE_SIZE="50G"
 
 init()
 {
-	[ -f "$MI5_ROOT/.init" ] && update || {
+	[ ! -f "$MI5_ROOT/.init" ] &&
+	{
 		dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT"
 		dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
 		dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
@@ -97,19 +98,21 @@ init()
 		file_ok "${ANDROID_CCACHE_DIR}/CACHEDIR.TAG" || CCACHE_DIR="${ANDROID_CCACHE_DIR}" ccache -M "${ANDROID_CCACHE_SIZE}"
 		touch "$MI5_ROOT/.init"
 		return 0
+	} || {
+		update
 	}
 }
 
 update()
 {
-	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && return 0
+	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
+	return 0
 }
 
 
 sync()
 {
-	cd "$ANDROID_ROOT" || exit 1
-	repo sync -c -j8 && return 0
+	cd "$ANDROID_ROOT" && repo sync -c -j8 && return 0
 }
 
 build()
