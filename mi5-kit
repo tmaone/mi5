@@ -83,8 +83,7 @@ export ANDROID_CCACHE_SIZE="50G"
 
 init()
 {
-	[[ -f "$MI5_ROOT/.init" ]] && return 0 ||
-	{
+	[ -f "$MI5_ROOT/.init" ] && return 0 || {
 		dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT"
 		dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
 		dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
@@ -100,7 +99,7 @@ update()
 	different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
 }
 
-[ init ] || update
+init || update
 
 echo $MI5_INIT
 
