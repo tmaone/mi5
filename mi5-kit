@@ -74,8 +74,12 @@ export ANDROID_ROOT="${MI5_ROOT}/android"
 export ANDROID_ROOT_REPO="${ANDROID_ROOT}/.repo"
 
 export LOCAL_MANIFESTS="${ANDROID_ROOT_REPO}/local_manifests"
+
 export ROOMSERVICE="$LOCAL_MANIFESTS/roomservice.xml"
-export MI5_MANIFEST="$LOCAL_MANIFESTS/mi5.xml"
+
+export MI5_MANIFEST="mi5.xml"
+export MI5_LOCAL_MANIFEST="$LOCAL_MANIFESTS/$MI5_MANIFEST"
+export MI5_ROOT_MANIFEST="$MI5_ROOT/$MI5_MANIFEST"
 
 export USE_CCACHE=1
 export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
@@ -89,17 +93,17 @@ init()
 		dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
 		dir_ok "$LOCAL_MANIFESTS" ||	creater_dir "$LOCAL_MANIFESTS"
 		file_ok "$ROOMSERVICE" || git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
-		different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+		different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp  "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
 		touch "$MI5_ROOT/.init"
 	}
 }
 
 update()
 {
-	different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp  "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
 }
 
-init || update
+! init || update
 
 echo $MI5_INIT
 
