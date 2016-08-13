@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+get_script_dir ()
+{
+     SOURCE="${BASH_SOURCE[0]}"
+     # While $SOURCE is a symlink, resolve it
+     while [ -h "$SOURCE" ]; do
+          DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+          SOURCE="$( readlink "$SOURCE" )"
+          # If $SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
+          [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+     done
+     DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+     echo "$DIR"
+}
+
+dir_ok()
+{
+	if [[ ! -d "$@" ]]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+file_ok()
+{
+	if [[ ! -f "$@" ]]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+creater_dir()
+{
+	mkdir -p "$@"
+}
+
+debug()
+{
+	[ $DEBUG == 1 ] && printf ".D. [%s]\n" "$@"
+}
+
+out()
+{
+	printf "%s\n" "$@"
+}
+
+mi5_init()
+{
+	[ $MI5_INIT == 1 ] && return 0 || return
+}
+
+different()
+{
+	if `diff $1 $2 >/dev/null` ; then
+	  return 0
+	else
+	  return 1
+	fi
+}
+
+export MI5_ROOT=$(get_script_dir)
+
+export CYANOGEN_REPO="https://github.com/CyanogenMod/android.git"
+export CYANOGEN_BRANCH="cm-13.0"
+
+export ROOMSERVICE_REPO="git@github.com:tmaone/android.git"
+
+export ANDROID_ROOT="${MI5_ROOT}/android"
+export ANDROID_ROOT_REPO="${ANDROID_ROOT}/.repo"
+
+export LOCAL_MANIFESTS="${ANDROID_ROOT_REPO}/local_manifests"
+export ROOMSERVICE="$LOCAL_MANIFESTS/roomservice.xml"
+export MI5_MANIFEST="$LOCAL_MANIFESTS/mi5.xml"
+
+export USE_CCACHE=1
+export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
+export ANDROID_CCACHE_SIZE="50G"
+
+dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT"
+dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
+dir_ok "$ANDROID_ROOT_REPO" ||	repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
+dir_ok "$LOCAL_MANIFESTS" ||	creater_dir "$LOCAL_MANIFESTS"
+
+file_ok "$ROOMSERVICE" || git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
+different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+
+out "MI5 CM-13.0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export MI5_INIT=1
+
+#
