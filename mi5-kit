@@ -81,30 +81,28 @@ export USE_CCACHE=1
 export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
 export ANDROID_CCACHE_SIZE="50G"
 
-dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT"
-dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
-dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
-dir_ok "$LOCAL_MANIFESTS" ||	creater_dir "$LOCAL_MANIFESTS"
+init()
+{
+	[[ -f "$MI5_ROOT/.init" ]] && return 0 ||
+	{
+		dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT"
+		dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
+		dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
+		dir_ok "$LOCAL_MANIFESTS" ||	creater_dir "$LOCAL_MANIFESTS"
+		file_ok "$ROOMSERVICE" || git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
+		different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+		touch "$MI5_ROOT/.init"
+	}
+}
 
-file_ok "$ROOMSERVICE" || git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
-different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+update()
+{
+	different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST"
+}
 
+[ init ] || update
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+echo $MI5_INIT
 
 
 
@@ -115,6 +113,12 @@ different "$MI5_ROOT/mi5.xml" "$MI5_MANIFEST" && cp "$MI5_ROOT/mi5.xml" "$MI5_MA
 
 
 
-export MI5_INIT=1
+
+
+
+
+
+
+
 
 #
