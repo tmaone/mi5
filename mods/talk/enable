@@ -6,7 +6,7 @@ GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
-MOD_APP_DIR="${GEMINI_VENDOR}/proprietary/app/voice"
+MOD_APP_DIR="${GEMINI_VENDOR}/system/app/vocalizer"
 
 out "App directory [${MOD_APP_DIR}]"
 ! dir_ok "${MOD_APP_DIR}" && mkdir -p "${MOD_APP_DIR}"
@@ -31,12 +31,13 @@ append ''
 append 'include $(CLEAR_VARS)'
 append 'LOCAL_MODULE := vocalizer'
 append 'LOCAL_MODULE_OWNER := xiaomi'
-append 'LOCAL_SRC_FILES := proprietary/app/voice/vocalizer.apk'
+append 'LOCAL_SRC_FILES := system/app/vocalizer/vocalizer.apk'
 append 'LOCAL_CERTIFICATE := platform'
 append 'LOCAL_MODULE_TAGS := optional'
 append 'LOCAL_MODULE_CLASS := APPS'
 append 'LOCAL_MODULE_SUFFIX := .apk'
 append 'LOCAL_PROPRIETARY_MODULE := true'
+append 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
 append 'include $(BUILD_PREBUILT)'
 append ''
 append 'endif'

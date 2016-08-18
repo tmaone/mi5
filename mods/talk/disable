@@ -6,7 +6,7 @@ GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
-MOD_APP_DIR="${GEMINI_VENDOR}/proprietary/app/voice"
+MOD_APP_DIR="${GEMINI_VENDOR}/system/app/vocalizer"
 
 out "Remove directory [${MOD_APP_DIR}]"
 dir_ok "${MOD_APP_DIR}" && rm -rv "${MOD_APP_DIR}"
