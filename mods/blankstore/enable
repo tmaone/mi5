@@ -1,0 +1,70 @@
+MOD_DIR="${MODS_DIR}/blankstore"
+MOD_APK="${MOD_DIR}/BlankStore.apk"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+MOD_APP="${GEMINI_VENDOR}/system/app/"
+MOD_APP_APK="com.android.vending.apk"
+
+out "App directory [${MOD_APP}]"
+! dir_ok "${MOD_APP}" && mkdir -p "${MOD_APP}"
+
+out "Copy Asset [${MOD_APK}]"
+cp -v "${MOD_APK}" "${MOD_APP}/${MOD_APP_APK}"
+
+# out "Backup vendor makefile  [${VENDOR_MK}] to [${MOD_DIR}/gemini-vendor.mk]"
+# cp -v "${VENDOR_MK}" "${MOD_DIR}/gemini-vendor.mk"
+# out "Backup android  makefile  [${ANDROID_MK}] to [${MOD_DIR}/Android.mk]"
+# cp -v "${ANDROID_MK}" "${MOD_DIR}/Android.mk"
+
+append()
+{
+	echo "${@}"
+	echo "${@}" >> "${ANDROID_MK}"
+}
+
+append ''
+append 'ifeq ($(TARGET_DEVICE),gemini)'
+append ''
+append 'include $(CLEAR_VARS)'
+append 'LOCAL_MODULE := com.android.vending'
+append 'LOCAL_MODULE_OWNER := xiaomi'
+append 'LOCAL_SRC_FILES := system/app/com.android.vending.apk'
+append 'LOCAL_CERTIFICATE := platform'
+append 'LOCAL_MODULE_TAGS := optional'
+append 'LOCAL_MODULE_CLASS := APPS'
+append 'LOCAL_MODULE_SUFFIX := .apk'
+append 'LOCAL_PROPRIETARY_MODULE := true'
+append 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+append 'include $(BUILD_PREBUILT)'
+append ''
+append 'endif'
+append ''
+
+vappend()
+{
+	echo "${@}"
+	echo "${@}" >> "${VENDOR_MK}"
+}
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += com.android.vending'
+vappend ''
+
+#
+# LOCAL_PATH:= $(call my-dir)
+# include $(CLEAR_VARS)
+#
+# LOCAL_MODULE_TAGS := optional
+# LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app
+#
+# LOCAL_SRC_FILES := $(call all-java-files-under, src)
+#
+# LOCAL_PACKAGE_NAME := LeanbackWidget
+#
+# LOCAL_SDK_VERSION := current
+#
+# include $(BUILD_PACKAGE)

@@ -31,7 +31,7 @@
   <project path="frameworks/mapsv1" name="microg/android_frameworks_mapsv1" remote="github" revision="master" />
 
   <!-- apps Fdroid -->
-  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="gitlab" revision="master" />
+  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="github" revision="master" />
 
   <!-- apps UnifiedNlp -->
   <project name="microg/android_packages_apps_UnifiedNlp" path="packages/apps/UnifiedNlp" remote="github" revision="master"/>
