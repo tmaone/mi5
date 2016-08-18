@@ -21,4 +21,21 @@
 	<remove-project name="CyanogenMod/android_packages_apps_WundergroundWeatherProvider"/>
   <project path="packages/apps/WundergroundWeatherProvider" name="CyanogenMod/android_packages_apps_WundergroundWeatherProvider" remote="github" revision="cm-13.0" />
 
+  <!-- add GmsCore -->
+  <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" />
+
+  <!-- add GsfProxy -->
+  <project path="packages/apps/GsfProxy" name="microg/android_packages_apps_GsfProxy" remote="github" revision="master" />
+
+  <!-- add mapsv1 -->
+  <project path="frameworks/mapsv1" name="microg/android_frameworks_mapsv1" remote="github" revision="master" />
+
+  <!-- apps Fdroid -->
+  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="gitlab" revision="master" />
+
+  <!-- apps UnifiedNlp -->
+  <project name="microg/android_packages_apps_UnifiedNlp" path="packages/apps/UnifiedNlp" remote="github" revision="master"/>
+  <project name="microg/android_external_UnifiedNlpApi" path="external/UnifiedNlpApi" remote="github" revision="master"/>
+  <project name="microg/android_external_MicroGUiTools" path="external/MicroGUiTools" remote="github" revision="master"/>
+
 </manifest>
