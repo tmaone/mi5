@@ -1,0 +1,53 @@
+MOD_DIR="${MODS_DIR}/talk"
+MOD_APK="${MOD_DIR}/talk.apk"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+MOD_APP_DIR="${GEMINI_VENDOR}/proprietary/app/voice"
+
+out "App directory [${MOD_APP_DIR}]"
+! dir_ok "${MOD_APP_DIR}" && mkdir -p "${MOD_APP_DIR}"
+
+out "Copy Asset [${MOD_APK}]"
+cp -v "${MOD_APK}" "${MOD_APP_DIR}/vocalizer.apk"
+
+out "Backup vendor makefile  [${VENDOR_MK}] to [${MOD_DIR}/gemini-vendor.mk]"
+cp -v "${VENDOR_MK}" "${MOD_DIR}/gemini-vendor.mk"
+out "Backup android  makefile  [${ANDROID_MK}] to [${MOD_DIR}/Android.mk]"
+cp -v "${ANDROID_MK}" "${MOD_DIR}/Android.mk"
+
+append()
+{
+	echo "${@}"
+	echo "${@}" >> "${ANDROID_MK}"
+}
+
+append ''
+append 'ifeq ($(TARGET_DEVICE),gemini)'
+append ''
+append 'include $(CLEAR_VARS)'
+append 'LOCAL_MODULE := vocalizer'
+append 'LOCAL_MODULE_OWNER := xiaomi'
+append 'LOCAL_SRC_FILES := proprietary/app/voice/vocalizer.apk'
+append 'LOCAL_CERTIFICATE := platform'
+append 'LOCAL_MODULE_TAGS := optional'
+append 'LOCAL_MODULE_CLASS := APPS'
+append 'LOCAL_MODULE_SUFFIX := .apk'
+append 'LOCAL_PROPRIETARY_MODULE := true'
+append 'include $(BUILD_PREBUILT)'
+append ''
+append 'endif'
+append ''
+
+vappend()
+{
+	echo "${@}"
+	echo "${@}" >> "${VENDOR_MK}"
+}
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += vocalizer'
+vappend ''
