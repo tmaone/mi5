@@ -8,12 +8,11 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
 MOD_APP="${GEMINI_VENDOR}/system/app/"
 
-
 out "Remove directory [${MOD_APP}]"
 dir_ok "${MOD_APP}" && rm -rv "${MOD_APP}"
 
-// out "Restore vendor makefile  [${VENDOR_MK}] from  [${MOD_DIR}/gemini-vendor.mk]"
-// file_ok "${MOD_DIR}/gemini-vendor.mk" && mv -v "${MOD_DIR}/gemini-vendor.mk" "${VENDOR_MK}"
-//
-// out "Restore android  makefile  [${ANDROID_MK}] from [${MOD_DIR}/Android.mk]"
-// file_ok "${MOD_DIR}/Android.mk" && mv -v "${MOD_DIR}/Android.mk" "${ANDROID_MK}"
+# // out "Restore vendor makefile  [${VENDOR_MK}] from  [${MOD_DIR}/gemini-vendor.mk]"
+# // file_ok "${MOD_DIR}/gemini-vendor.mk" && mv -v "${MOD_DIR}/gemini-vendor.mk" "${VENDOR_MK}"
+# //
+# // out "Restore android  makefile  [${ANDROID_MK}] from [${MOD_DIR}/Android.mk]"
+# // file_ok "${MOD_DIR}/Android.mk" && mv -v "${MOD_DIR}/Android.mk" "${ANDROID_MK}"
