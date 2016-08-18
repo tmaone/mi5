@@ -1,0 +1,20 @@
+MOD_FILE_PATH="${MODS_DIR}/dict/"
+
+MOD_FILE_1="${MOD_FILE_PATH}/main_en.dict"
+MOD_FILE_2="${MOD_FILE_PATH}/main_el.dict"
+MOD_FILE_3="${MOD_FILE_PATH}/main_sv.dict"
+MOD_FILE_4="${MOD_FILE_PATH}/main_uk.dict"
+
+MOD_ORIGINAL_1="${ANDROID_ROOT}/packages/inputmethods/LatinIME/java/res/raw/main.dict"
+MOD_ORIGINAL_2="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_el.dict"
+MOD_ORIGINAL_3="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_sv.dict"
+MOD_ORIGINAL_4="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_uk.dict"
+
+MOD_REFRESH="${OUT_DIR}/target/product/gemini/system/app/LatinIME/LatinIME.apk"
+
+file_ok "${MOD_FILE_1}.bak" && out "Restore backup [${MOD_FILE_1}.bak] to [${MOD_ORIGINAL_1}]" && mv "${MOD_FILE_1}.bak" "${MOD_ORIGINAL_1}"
+file_ok "${MOD_FILE_2}.bak" && out "Restore backup [${MOD_FILE_2}.bak] to [${MOD_ORIGINAL_2}]" && mv "${MOD_FILE_2}.bak" "${MOD_ORIGINAL_2}"
+file_ok "${MOD_FILE_3}.bak" && out "Restore backup [${MOD_FILE_3}.bak] to [${MOD_ORIGINAL_3}]" && mv "${MOD_FILE_3}.bak" "${MOD_ORIGINAL_3}"
+file_ok "${MOD_FILE_4}.bak" && out "Restore backup [${MOD_FILE_4}.bak] to [${MOD_ORIGINAL_4}]" && mv "${MOD_FILE_4}.bak" "${MOD_ORIGINAL_4}"
+
+file_ok "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm "${MOD_REFRESH}"

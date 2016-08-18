@@ -16,7 +16,7 @@ get_script_dir ()
 
 . "$(get_script_dir)/mi5-kit"
 
-init && sync && build
+init && update && build
 
 
 

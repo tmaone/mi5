@@ -16,8 +16,8 @@ get_script_dir ()
 
 . "$(get_script_dir)/mi5-kit"
 
-rm -rfv $ANDROID_ROOT
-rm -rfv $ANDROID_CCACHE_DIR
-rm -fv  $MI5_ROOT/.init
+mods_disable
 
-#
+# rm -rfv $ANDROID_ROOT
+# rm -rfv $ANDROID_CCACHE_DIR
+# rm -fv  $MI5_ROOT/.init
