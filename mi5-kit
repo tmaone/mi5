@@ -155,9 +155,9 @@ init()
 update()
 {
 	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
-  mods_disable
-  cd "$ANDROID_ROOT" && repo sync -c -j8
-  mods_enable
+  # mods_disable
+  # cd "$ANDROID_ROOT" && repo sync -c -j8
+  # mods_enable
   return 0
 }
 
@@ -170,6 +170,7 @@ build()
 	if [ "$(uname)" == "Darwin" ]; then
 		export MAC_SDK_VERSION='10.11'
 	fi
+  export ANDROID_HOME=/usr/local/opt/android-sdk
 	cd "${ANDROID_ROOT}" && . "build/envsetup.sh" && brunch cm_gemini-userdebug && out "^^^ Build Complete ^^^^";
 	return 0
 }

@@ -79,10 +79,10 @@ vappend ''
 vappend 'PRODUCT_PACKAGES += tcpdump'
 vappend ''
 
-vappend ''
-vappend 'PRODUCT_PACKAGES += FMRadio'
-vappend ''
-
+# vappend ''
+# vappend 'PRODUCT_PACKAGES += FMRadio'
+# vappend ''
+#
 
 # # PRODUCT_PACKAGES
 # MOD_DIR="${MODS_DIR}/blankstore"
