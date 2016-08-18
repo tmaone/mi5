@@ -60,10 +60,28 @@ vappend 'PRODUCT_PACKAGES += busybox'
 vappend ''
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += '
+vappend 'PRODUCT_PACKAGES += curl'
 vappend ''
 
+vappend ''
+vappend 'PRODUCT_PACKAGES += bash'
+vappend ''
 
+vappend ''
+vappend 'PRODUCT_PACKAGES += bsdiff'
+vappend ''
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += p7zip'
+vappend ''
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += tcpdump'
+vappend ''
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += FMRadio'
+vappend ''
 
 
 # # PRODUCT_PACKAGES
