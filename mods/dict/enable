@@ -1,4 +1,4 @@
-MOD_FILE_PATH="${MODS_DIR}/dict/"
+MOD_FILE_PATH="${MODS_DIR}/dict"
 
 MOD_FILE_1="${MOD_FILE_PATH}/main_en.dict"
 MOD_FILE_2="${MOD_FILE_PATH}/main_el.dict"

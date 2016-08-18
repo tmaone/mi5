@@ -1,4 +1,4 @@
-MOD_DIR="${MODS_DIR}/spoofsig/"
+MOD_DIR="${MODS_DIR}/spoofsig"
 MOD_PATCH="${MOD_DIR}/android_frameworks_base-M.patch"
 
 MODB_1="${MOD_DIR}/strings.xml"
