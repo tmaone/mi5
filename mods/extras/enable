@@ -32,10 +32,6 @@ vappend 'PRODUCT_PACKAGES += OpenWeatherMapProvider'
 vappend ''
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += WundergroundWeatherProvider'
-vappend ''
-
-vappend ''
 vappend 'PRODUCT_PACKAGES += GmsCore'
 vappend ''
 
