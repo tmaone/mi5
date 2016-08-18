@@ -163,7 +163,7 @@ update()
 
 build()
 {
-  return 0
+  # return 0
 	ulimit -S -n 1024
 	unset GREP_OPTIONS
 	dir_ok "$OUT_DIR" || creater_dir "$OUT_DIR"
