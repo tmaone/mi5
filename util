@@ -162,7 +162,7 @@ unmod()
 
 modded()
 {
-  exist "${MI5_INIT}" || do_init
+  exists "${MI5_INIT}" || do_init
   source "${MI5_INIT}"
   [ ${MODDED} == 1 ] && return 0 || return 1
 }
@@ -170,28 +170,7 @@ modded()
 # vars
 init
 
-# update()
-# {
-# 	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
-#   # mods_disable
-#   # cd "$ANDROID_ROOT" && repo sync -c -j8
-#   # mods_enable
-#   return 0
-# }
-#
-# build()
-# {
-#   # return 0
-# 	ulimit -S -n 1024
-# 	unset GREP_OPTIONS
-# 	dir_ok "$OUT_DIR" || creater_dir "$OUT_DIR"
-# 	if [ "$(uname)" == "Darwin" ]; then
-# 		export MAC_SDK_VERSION='10.11'
-# 	fi
-#   export ANDROID_HOME=/usr/local/opt/android-sdk
-# 	cd "${ANDROID_ROOT}" && . "build/envsetup.sh" && brunch cm_gemini-userdebug && out "^^^ Build Complete ^^^^";
-# 	return 0
-# }
+
 #
 # mods_enable()
 # {
