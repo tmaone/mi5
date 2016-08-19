@@ -13,14 +13,6 @@
 	<remove-project name="CyanogenMod/android_packages_apps_YahooWeatherProvider"/>
   <project path="packages/apps/YahooWeatherProvider" name="CyanogenMod/android_packages_apps_YahooWeatherProvider" remote="github" revision="cm-13.0" />
 
-  <!-- add OpenWeatherMapProvider from the cyanogenmod repository -->
-	<!-- <remove-project name="CyanogenMod/android_packages_apps_OpenWeatherMapProvider"/> -->
-  <!-- <project path="packages/apps/OpenWeatherMapProvider" name="CyanogenMod/android_packages_apps_OpenWeatherMapProvider" remote="github" revision="cm-13.0" /> -->
-
-  <!-- add WundergroundWeatherProvider from the cyanogenmod repository -->
-	<!-- <remove-project name="CyanogenMod/android_packages_apps_WundergroundWeatherProvider"/> -->
-  <!-- <project path="packages/apps/WundergroundWeatherProvider" name="CyanogenMod/android_packages_apps_WundergroundWeatherProvider" remote="github" revision="cm-13.0" /> -->
-
   <!-- add GmsCore -->
   <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" />
 
