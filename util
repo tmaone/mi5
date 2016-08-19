@@ -170,37 +170,6 @@ modded()
 # vars
 init
 
-
-#
-# mods_enable()
-# {
-#   out "Enable MODs"
-#   MODS=($(entries))
-#   for mod in "${MODS[@]}"
-#   do
-#     if file_ok "${MODS_DIR}/${mod}/enable"; then
-#       out "Mod [$mod] Enabled."
-#       . "${MODS_DIR}/${mod}/enable"
-#     fi
-#   done
-# }
-#
-# mods_disable()
-# {
-#   MODS=($(entries))
-#   for mod in "${MODS[@]}"
-#   do
-#     if file_ok "${MODS_DIR}/${mod}/disable"; then
-#       out "Mod [$mod] Disabled"
-#       . "${MODS_DIR}/${mod}/disable"
-#     fi
-#   done
-# }
-#
-#
-#
-#
-#
 # # if dir_ok "${MODS_DIR}/${mod}"; then
 # #   if file_ok "${MODS_DIR}/${mod}/files"; then
 # #     while IFS=$'\n' read -r -a file_entry
@@ -216,29 +185,5 @@ init
 # #     . "${MODS_DIR}/${mod}/exec" "${MODS_DIR}/${mod}"
 # #   fi
 # # fi
-#
-#
-#
-#
-#
-# # ! init || update
-# # echo $MI5_INIT
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
-
-
-
 
 #

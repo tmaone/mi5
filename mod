@@ -2,20 +2,14 @@
 
 . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
 
-# get_script_dir ()
-# {
-#      SOURCE="${BASH_SOURCE[0]}"
-#      # While $SOURCE is a symlink, resolve it
-#      while [ -h "$SOURCE" ]; do
-#           DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-#           SOURCE="$( readlink "$SOURCE" )"
-#           # If $SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
-#           [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-#      done
-#      DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-#      echo "$DIR"
-# }
-#
-# . "$(get_script_dir)/mi5-kit"
-#
-# mods_enable
+out "Enable MODs"
+MODS=($(entries))
+
+for mod in "${MODS[@]}"
+do
+  if f_exists "${MODS_DIR}/${mod}/enable"; then
+    out "Applying [$mod]."
+    echo . "${MODS_DIR}/${mod}/enable"
+		out "MODDED=1" > "${MI5_INIT}"
+  fi
+done
