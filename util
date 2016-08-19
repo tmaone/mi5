@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-get_script_dir ()
+get_script_dir()
 {
      SOURCE="${BASH_SOURCE[0]}"
      # While $SOURCE is a symlink, resolve it
@@ -14,7 +14,7 @@ get_script_dir ()
      echo "$DIR"
 }
 
-dir_ok()
+d_exists()
 {
 	if [[ ! -d "$@" ]]; then
 		return 1
@@ -23,7 +23,7 @@ dir_ok()
 	fi
 }
 
-file_ok()
+f_exists()
 {
 	if [[ ! -f "$@" ]]; then
 		return 1
@@ -32,7 +32,12 @@ file_ok()
 	fi
 }
 
-creater_dir()
+exists()
+{
+  f_exists "${1}" || d_exists "${1}"
+}
+
+mkd()
 {
 	mkdir -p "$@"
 }
@@ -61,6 +66,11 @@ different()
 	fi
 }
 
+del()
+{
+  rm -v "$@"
+}
+
 entries()
 {
   grep -v '^#' ${MODS_CONFIG} | while read -r line ; do
@@ -68,184 +78,135 @@ entries()
   done
 }
 
-check()
-{
-    [ -f "$MI5_ROOT/.init" ] && return 0 || return 1
-}
+export MI5_ROOT="$(get_script_dir)"
+export MI5_INIT="${MI5_ROOT}/.init"
+
+
+# check_init()
+# {
+#     [ -f "$MI5_ROOT/.init" ] && return 0 || return 1
+# }
+
+# export CYANOGEN_REPO="https://github.com/CyanogenMod/android.git"
+# export CYANOGEN_BRANCH="cm-13.0"
 
 # fail()
 # {
 #     [ -f "$MI5_ROOT/.init" ] && return 0 || return 1
 # }
+# out "MI5 CM-13.0"
+# export ROOMSERVICE_REPO="git@github.com:tmaone/android.git"
+#
+# export ANDROID_ROOT="${MI5_ROOT}/android"
+# export ANDROID_ROOT_REPO="${ANDROID_ROOT}/.repo"
+#
+# export LOCAL_MANIFESTS="${ANDROID_ROOT_REPO}/local_manifests"
+#
+# export ROOMSERVICE="$LOCAL_MANIFESTS/roomservice.xml"
+#
+# export MI5_MANIFEST="mi5.xml"
+# export MI5_LOCAL_MANIFEST="$LOCAL_MANIFESTS/$MI5_MANIFEST"
+# export MI5_ROOT_MANIFEST="$MI5_ROOT/$MI5_MANIFEST"
+#
+# export USE_CCACHE=1
+# export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
+# export ANDROID_CCACHE_SIZE="50G"
+#
+# export OUT_DIR="${MI5_ROOT}/build"
+#
+# export MODS_DIR="${MI5_ROOT}/mods"
+#
+# export MODS_CONFIG="${MODS_DIR}/config"
+#
 
-out "MI5 CM-13.0"
-
-export MI5_ROOT=$(get_script_dir)
-
-export CYANOGEN_REPO="https://github.com/CyanogenMod/android.git"
-export CYANOGEN_BRANCH="cm-13.0"
-
-export ROOMSERVICE_REPO="git@github.com:tmaone/android.git"
-
-export ANDROID_ROOT="${MI5_ROOT}/android"
-export ANDROID_ROOT_REPO="${ANDROID_ROOT}/.repo"
-
-export LOCAL_MANIFESTS="${ANDROID_ROOT_REPO}/local_manifests"
-
-export ROOMSERVICE="$LOCAL_MANIFESTS/roomservice.xml"
-
-export MI5_MANIFEST="mi5.xml"
-export MI5_LOCAL_MANIFEST="$LOCAL_MANIFESTS/$MI5_MANIFEST"
-export MI5_ROOT_MANIFEST="$MI5_ROOT/$MI5_MANIFEST"
-
-export USE_CCACHE=1
-export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
-export ANDROID_CCACHE_SIZE="50G"
-
-export OUT_DIR="${MI5_ROOT}/build"
-
-export MODS_DIR="${MI5_ROOT}/mods"
-
-export MODS_CONFIG="${MODS_DIR}/config"
-
-
-init()
-{
-
-  if [ -f "$MI5_ROOT/.init" ]; then
-    return 0
-  else
-    ! dir_ok "$ANDROID_ROOT" && creater_dir
-    ! dir_ok "$ANDROID_ROOT_REPO" &&	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
-    ! file_ok "$ROOMSERVICE" && git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
-    different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
-
-    ! dir_ok "$ANDROID_CCACHE_DIR" && creater_dir "$ANDROID_CCACHE_DIR"
-    ! file_ok "${ANDROID_CCACHE_DIR}/CACHEDIR.TAG" &&  CCACHE_DIR="${ANDROID_CCACHE_DIR}" ccache -M "${ANDROID_CCACHE_SIZE}"
-
-    touch "$MI5_ROOT/.init"
-  fi
-
-  if [ ! -f "$MI5_ROOT/.init" ]; then
-    return 1
-  else
-    return 0
-  fi
-
-  # ÷"$ANDROID_ROOT" && check || fail
-  # [ -f "$MI5_ROOT/.init" ] && { return 0 } || {
-  #
-	# [ ! -f "$MI5_ROOT/.init" ] &&
-	# {
-	# 	dir_ok "$ANDROID_ROOT" || creater_dir "$ANDROID_ROOT" && check || fail
-  #
-  #
-	# 	dir_ok "$ANDROID_CCACHE_DIR" || creater_dir "$ANDROID_CCACHE_DIR"
-	# 	dir_ok "$ANDROID_ROOT_REPO" ||	cd "$ANDROID_ROOT" && repo init -u "$CYANOGEN_REPO" -b "$CYANOGEN_BRANCH" --depth=1
-	# 	dir_ok "$LOCAL_MANIFESTS" ||	creater_dir "$LOCAL_MANIFESTS"
-	# 	file_ok "$ROOMSERVICE" || git clone "$ROOMSERVICE_REPO" "$LOCAL_MANIFESTS"
-  # 	file_ok "${ANDROID_CCACHE_DIR}/CACHEDIR.TAG" || CCACHE_DIR="${ANDROID_CCACHE_DIR}" ccache -M "${ANDROID_CCACHE_SIZE}"
-	# 	touch "$MI5_ROOT/.init"
-	# 	return 0
-	# } || {
-	# 	update
-	# }
-}
-
-update()
-{
-	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
-  # mods_disable
-  # cd "$ANDROID_ROOT" && repo sync -c -j8
-  # mods_enable
-  return 0
-}
-
-build()
-{
-  # return 0
-	ulimit -S -n 1024
-	unset GREP_OPTIONS
-	dir_ok "$OUT_DIR" || creater_dir "$OUT_DIR"
-	if [ "$(uname)" == "Darwin" ]; then
-		export MAC_SDK_VERSION='10.11'
-	fi
-  export ANDROID_HOME=/usr/local/opt/android-sdk
-	cd "${ANDROID_ROOT}" && . "build/envsetup.sh" && brunch cm_gemini-userdebug && out "^^^ Build Complete ^^^^";
-	return 0
-}
-
-mods_enable()
-{
-  out "Enable MODs"
-  MODS=($(entries))
-  for mod in "${MODS[@]}"
-  do
-    if file_ok "${MODS_DIR}/${mod}/enable"; then
-      out "Mod [$mod] Enabled."
-      . "${MODS_DIR}/${mod}/enable"
-    fi
-  done
-}
-
-mods_disable()
-{
-  MODS=($(entries))
-  for mod in "${MODS[@]}"
-  do
-    if file_ok "${MODS_DIR}/${mod}/disable"; then
-      out "Mod [$mod] Disabled"
-      . "${MODS_DIR}/${mod}/disable"
-    fi
-  done
-}
-
-
-
-
-
-# if dir_ok "${MODS_DIR}/${mod}"; then
-#   if file_ok "${MODS_DIR}/${mod}/files"; then
-#     while IFS=$'\n' read -r -a file_entry
-#     do
-#       entries=(${file_entry[0]})
-#       cp -v "${MODS_DIR}/${mod}/${entries[0]}" "${ANDROID_ROOT}/${entries[1]}"
-#       if file_ok "${BUILD_DIR}/${entries[2]}"; then
-#         rm -v "${BUILD_DIR}/${entries[2]}"
-#       fi
-#     done < "${MODS_DIR}/${mod}/files"
-#   fi
-#   if dir_ok "${MODS_DIR}/${mod}/exec"; then
-#     . "${MODS_DIR}/${mod}/exec" "${MODS_DIR}/${mod}"
-#   fi
-# fi
-
-
-
-
-
-
-
-
-
-
-
-
-# ! init || update
-# echo $MI5_INIT
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+# update()
+# {
+# 	different "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST" && cp "$MI5_ROOT_MANIFEST" "$MI5_LOCAL_MANIFEST"
+#   # mods_disable
+#   # cd "$ANDROID_ROOT" && repo sync -c -j8
+#   # mods_enable
+#   return 0
+# }
+#
+# build()
+# {
+#   # return 0
+# 	ulimit -S -n 1024
+# 	unset GREP_OPTIONS
+# 	dir_ok "$OUT_DIR" || creater_dir "$OUT_DIR"
+# 	if [ "$(uname)" == "Darwin" ]; then
+# 		export MAC_SDK_VERSION='10.11'
+# 	fi
+#   export ANDROID_HOME=/usr/local/opt/android-sdk
+# 	cd "${ANDROID_ROOT}" && . "build/envsetup.sh" && brunch cm_gemini-userdebug && out "^^^ Build Complete ^^^^";
+# 	return 0
+# }
+#
+# mods_enable()
+# {
+#   out "Enable MODs"
+#   MODS=($(entries))
+#   for mod in "${MODS[@]}"
+#   do
+#     if file_ok "${MODS_DIR}/${mod}/enable"; then
+#       out "Mod [$mod] Enabled."
+#       . "${MODS_DIR}/${mod}/enable"
+#     fi
+#   done
+# }
+#
+# mods_disable()
+# {
+#   MODS=($(entries))
+#   for mod in "${MODS[@]}"
+#   do
+#     if file_ok "${MODS_DIR}/${mod}/disable"; then
+#       out "Mod [$mod] Disabled"
+#       . "${MODS_DIR}/${mod}/disable"
+#     fi
+#   done
+# }
+#
+#
+#
+#
+#
+# # if dir_ok "${MODS_DIR}/${mod}"; then
+# #   if file_ok "${MODS_DIR}/${mod}/files"; then
+# #     while IFS=$'\n' read -r -a file_entry
+# #     do
+# #       entries=(${file_entry[0]})
+# #       cp -v "${MODS_DIR}/${mod}/${entries[0]}" "${ANDROID_ROOT}/${entries[1]}"
+# #       if file_ok "${BUILD_DIR}/${entries[2]}"; then
+# #         rm -v "${BUILD_DIR}/${entries[2]}"
+# #       fi
+# #     done < "${MODS_DIR}/${mod}/files"
+# #   fi
+# #   if dir_ok "${MODS_DIR}/${mod}/exec"; then
+# #     . "${MODS_DIR}/${mod}/exec" "${MODS_DIR}/${mod}"
+# #   fi
+# # fi
+#
+#
+#
+#
+#
+# # ! init || update
+# # echo $MI5_INIT
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 
 
 
