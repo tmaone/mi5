@@ -9,7 +9,7 @@ for mod in "${MODS[@]}"
 do
   if f_exists "${MODS_DIR}/${mod}/disable"; then
     out "Restoring [$mod]."
-    echo . "${MODS_DIR}/${mod}/disable"
+    . "${MODS_DIR}/${mod}/disable"
 		out "MODDED=0" > "${MI5_INIT}"
   fi
 done
