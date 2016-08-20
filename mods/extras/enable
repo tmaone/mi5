@@ -15,8 +15,9 @@ vappend()
 	echo "${@}" >> "${VENDOR_MK}"
 }
 
+
 vappend ''
-vappend 'PRODUCT_PACKAGES += NetworkLocation'
+vappend 'PRODUCT_PACKAGES += busybox'
 vappend ''
 
 vappend ''
@@ -32,11 +33,11 @@ vappend 'PRODUCT_PACKAGES += GsfProxy'
 vappend ''
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += mapsv1'
+vappend 'PRODUCT_PACKAGES += NetworkLocation'
 vappend ''
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += F-Droid'
+vappend 'PRODUCT_PACKAGES += MicroGUiTools'
 vappend ''
 
 vappend ''
@@ -44,20 +45,20 @@ vappend 'PRODUCT_PACKAGES += UnifiedNlp'
 vappend ''
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += busybox'
+vappend 'PRODUCT_PACKAGES += UnifiedNlpApi'
 vappend ''
 
+vappend ''
+vappend 'PRODUCT_PACKAGES += NominatimGeocoderBackend'
+vappend ''
 
+# vappend ''
+# vappend 'PRODUCT_PACKAGES += com.google.android.maps'
+# vappend ''
 
-
-
-
-
-
-
-
-
-
+vappend ''
+vappend 'PRODUCT_PACKAGES += F-Droid'
+vappend ''
 
 
 

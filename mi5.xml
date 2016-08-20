@@ -8,26 +8,25 @@
   <!-- add ProTips from the cyanogenmod repository -->
   <project path="packages/apps/Protips" name="CyanogenMod/android_packages_apps_Protips" remote="github" revision="cm-13.0" />
 
-
   <!-- add YahooWeatherProvider from the cyanogenmod repository -->
 	<remove-project name="CyanogenMod/android_packages_apps_YahooWeatherProvider"/>
   <project path="packages/apps/YahooWeatherProvider" name="CyanogenMod/android_packages_apps_YahooWeatherProvider" remote="github" revision="cm-13.0" />
 
-  <!-- add GmsCore -->
+  <!-- add MicroG -->
   <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" />
-
-  <!-- add GsfProxy -->
   <project path="packages/apps/GsfProxy" name="microg/android_packages_apps_GsfProxy" remote="github" revision="master" />
-
-  <!-- add mapsv1 -->
-  <project path="frameworks/mapsv1" name="microg/android_frameworks_mapsv1" remote="github" revision="master" />
-
-  <!-- apps Fdroid -->
-  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="github" revision="master" />
+  <!-- <project path="packages/apps/FakeStore" name="microg/android_packages_apps_FakeStore" remote="github" revision="master" /> -->
 
   <!-- apps UnifiedNlp -->
   <project name="microg/android_packages_apps_UnifiedNlp" path="packages/apps/UnifiedNlp" remote="github" revision="master"/>
   <project name="microg/android_external_UnifiedNlpApi" path="external/UnifiedNlpApi" remote="github" revision="master"/>
   <project name="microg/android_external_MicroGUiTools" path="external/MicroGUiTools" remote="github" revision="master"/>
+
+  <project name="n76/NominatimGeocoderBackend" path="external/NominatimGeocoderBackend" remote="github" revision="issue4"/>
+  <project name="n76/Local-GSM-Backend" path="external/localgsmlocation" remote="github" revision="master"/>
+  <project name="n76/wifi_backend" path="external/localwifilocation" remote="github" revision="master"/>
+
+  <!-- apps Fdroid -->
+  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="github" revision="master" />
 
 </manifest>

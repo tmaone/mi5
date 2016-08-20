@@ -6,7 +6,7 @@ GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
-MOD_APP="${GEMINI_VENDOR}/system/app/com.android.vending"
+MOD_APP="${GEMINI_VENDOR}/system/priv-app/Phonesky"
 
 out "Remove directory [${MOD_APP}]"
 d_exists "${MOD_APP}" && rm -rv "${MOD_APP}"

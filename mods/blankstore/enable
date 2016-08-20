@@ -6,8 +6,8 @@ GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
-MOD_APP="${GEMINI_VENDOR}/system/app/"
-MOD_APP_APK="com.android.vending.apk"
+MOD_APP="${GEMINI_VENDOR}/system/priv-app/Phonesky"
+MOD_APP_APK="BlankStore.apk"
 
 out "App directory [${MOD_APP}]"
 ! d_exists "${MOD_APP}" && mkd "${MOD_APP}"
@@ -25,15 +25,15 @@ append ''
 append 'ifeq ($(TARGET_DEVICE),gemini)'
 append ''
 append 'include $(CLEAR_VARS)'
-append 'LOCAL_MODULE := com.android.vending'
+append 'LOCAL_MODULE := BlankStore'
 append 'LOCAL_MODULE_OWNER := xiaomi'
-append 'LOCAL_SRC_FILES := system/app/com.android.vending.apk'
+append 'LOCAL_SRC_FILES := system/priv-app/Phonesky/BlankStore.apk'
 append 'LOCAL_CERTIFICATE := platform'
 append 'LOCAL_MODULE_TAGS := optional'
 append 'LOCAL_MODULE_CLASS := APPS'
 append 'LOCAL_MODULE_SUFFIX := .apk'
 append 'LOCAL_PROPRIETARY_MODULE := true'
-append 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+append 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/priv-app/Phonesky'
 append 'include $(BUILD_PREBUILT)'
 append ''
 append 'endif'
@@ -46,5 +46,5 @@ vappend()
 }
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += com.android.vending'
+vappend 'PRODUCT_PACKAGES += BlankStore'
 vappend ''
