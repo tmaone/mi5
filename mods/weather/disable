@@ -1,0 +1,7 @@
+MOD_DIR="${MODS_DIR}/weather"
+MOD_MK="${MOD_DIR}/YahooAndroid.mk"
+MOD_DEST="${ANDROID_ROOT}/packages/apps/YahooWeatherProvider"
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini/gemini-vendor.mk"
+
+out "Remove native Android.mk [${MOD_DEST}/Android.mk]"
+f_exists "${MOD_DEST}/Android.mk" && rm -v "${MOD_DEST}/Android.mk"
