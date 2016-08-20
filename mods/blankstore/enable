@@ -7,7 +7,7 @@ VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
 MOD_APP="${GEMINI_VENDOR}/system/priv-app/Phonesky"
-MOD_APP_APK="BlankStore.apk"
+MOD_APP_APK="Phonesky.apk"
 
 out "App directory [${MOD_APP}]"
 ! d_exists "${MOD_APP}" && mkd "${MOD_APP}"
@@ -25,9 +25,9 @@ append ''
 append 'ifeq ($(TARGET_DEVICE),gemini)'
 append ''
 append 'include $(CLEAR_VARS)'
-append 'LOCAL_MODULE := BlankStore'
+append 'LOCAL_MODULE := Phonesky'
 append 'LOCAL_MODULE_OWNER := xiaomi'
-append 'LOCAL_SRC_FILES := system/priv-app/Phonesky/BlankStore.apk'
+append 'LOCAL_SRC_FILES := system/priv-app/Phonesky/Phonesky.apk'
 append 'LOCAL_CERTIFICATE := platform'
 append 'LOCAL_MODULE_TAGS := optional'
 append 'LOCAL_MODULE_CLASS := APPS'
@@ -46,5 +46,5 @@ vappend()
 }
 
 vappend ''
-vappend 'PRODUCT_PACKAGES += BlankStore'
+vappend 'PRODUCT_PACKAGES += Phonesky'
 vappend ''
