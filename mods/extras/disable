@@ -1,1 +1,22 @@
 # PRODUCT_PACKAGES
+MOD_DIR="${MODS_DIR}/extras"
+
+MOD_LOCAL_GSM="${MOD_DIR}/LocalGSMAndroid.mk"
+MOD_LOCAL_GSM_DEST="${ANDROID_ROOT}/external/localgsmlocation"
+MOD_LOCAL_WIFI="${MOD_DIR}/LocalWIFIAndroid.mk"
+MOD_LOCAL_WIFI_DEST="${ANDROID_ROOT}/external/localwifilocation"
+MOD_GEOCODE="${MOD_DIR}/GeocodingAndroid.mk"
+MOD_GEOCODE_DEST="${ANDROID_ROOT}/external/NominatimGeocoderBackend"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+out "Remove native Android.mk [${MOD_LOCAL_GSM_DEST}/Android.mk]"
+f_exists "${MOD_LOCAL_GSM_DEST}/Android.mk" && rm -v "${MOD_LOCAL_GSM_DEST}/Android.mk"
+
+out "Remove native Android.mk [${MOD_LOCAL_WIFI_DEST}/Android.mk]"
+f_exists "${MOD_LOCAL_WIFI_DEST}/Android.mk" && rm -v "${MOD_LOCAL_WIFI_DEST}/Android.mk"
+
+out "Remove native Android.mk [${MOD_GEOCODE_DEST}/Android.mk]"
+f_exists "${MOD_LOCAL_WIFI_DEST}/Android.mk" && rm -v "${MOD_GEOCODE_DEST}/Android.mk"

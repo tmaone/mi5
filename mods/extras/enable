@@ -1,7 +1,15 @@
+MOD_DIR="${MODS_DIR}/extras"
+
+MOD_LOCAL_GSM="${MOD_DIR}/LocalGSMAndroid.mk"
+MOD_LOCAL_GSM_DEST="${ANDROID_ROOT}/external/localgsmlocation"
+MOD_LOCAL_WIFI="${MOD_DIR}/LocalWIFIAndroid.mk"
+MOD_LOCAL_WIFI_DEST="${ANDROID_ROOT}/external/localwifilocation"
+MOD_GEOCODE="${MOD_DIR}/GeocodingAndroid.mk"
+MOD_GEOCODE_DEST="${ANDROID_ROOT}/external/NominatimGeocoderBackend"
+
 GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
-
 
 append()
 {
@@ -15,9 +23,27 @@ vappend()
 	echo "${@}" >> "${VENDOR_MK}"
 }
 
+out "Install native Android.mk [${MOD_LOCAL_GSM}] to [${MOD_LOCAL_GSM_DEST}/Android.mk]"
+cp -v "${MOD_LOCAL_GSM}" "${MOD_LOCAL_GSM_DEST}/Android.mk"
+
+out "Install native Android.mk [${MOD_LOCAL_WIFI}] to [${MOD_LOCAL_WIFI_DEST}/Android.mk]"
+cp -v "${MOD_LOCAL_WIFI}" "${MOD_LOCAL_WIFI_DEST}/Android.mk"
+
+out "Install native Android.mk [${MOD_GEOCODE}] to [${MOD_GEOCODE_DEST}/Android.mk]"
+cp -v "${MOD_GEOCODE}" "${MOD_GEOCODE_DEST}/Android.mk"
+
+vappend()
+{
+	echo "${@}"
+	echo "${@}" >> "${GEMINI_VENDOR}"
+}
 
 vappend ''
 vappend 'PRODUCT_PACKAGES += busybox'
+vappend ''
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += YahooWeatherProvider'
 vappend ''
 
 vappend ''
@@ -52,44 +78,19 @@ vappend ''
 vappend 'PRODUCT_PACKAGES += NominatimGeocoderBackend'
 vappend ''
 
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += com.google.android.maps'
-# vappend ''
+vappend ''
+vappend 'PRODUCT_PACKAGES += LocalGSMLocation'
+vappend ''
+
+vappend ''
+vappend 'PRODUCT_PACKAGES += LocalWifiLocation'
+vappend ''
 
 vappend ''
 vappend 'PRODUCT_PACKAGES += F-Droid'
 vappend ''
 
 
-
-
-
-
-
-
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += curl'
-# vappend ''
-#
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += bash'
-# vappend ''
-#
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += bsdiff'
-# vappend ''
-#
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += p7zip'
-# vappend ''
-#
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += tcpdump'
-# vappend ''
-#
-# vappend ''
-# vappend 'PRODUCT_PACKAGES += FMRadio'
-# vappend ''
 #
 
 # # PRODUCT_PACKAGES
