@@ -2,5 +2,5 @@ MOD_ORIGINAL="${ANDROID_ROOT}/vendor/cm/prebuilt/common/bootanimation/1080.zip"
 MOD_FILE="${MODS_DIR}/bootanimation/bootanimation.zip"
 MOD_REFRESH="${OUT_DIR}/target/product/gemini/system/media/bootanimation.zip"
 
-file_ok "${MOD_FILE}.bak" && out "Restore backup [${MOD_FILE}.bak] to [${MOD_ORIGINAL}]" && mv "${MOD_FILE}.bak" "${MOD_ORIGINAL}"
-file_ok "${MOD_REFRESH}" && out "Trigerring refresh [${MOD_REFRESH}]" && rm "${MOD_REFRESH}"
+f_exists "${MOD_FILE}.bak" && out "Restore backup [${MOD_FILE}.bak] to [${MOD_ORIGINAL}]" && mv -v "${MOD_FILE}.bak" "${MOD_ORIGINAL}"
+f_exists "${MOD_REFRESH}" && out "Trigerring refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"

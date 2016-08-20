@@ -1,10 +1,7 @@
 MOD_FILE="${MODS_DIR}/splash/splash.img"
-
 MOD_ORIGINAL="${ANDROID_ROOT}/vendor/xiaomi/gemini/radio/splash.img"
-
 MOD_REFRESH="${OUT_DIR}/target/product/gemini/splash.img"
 
-
-file_ok "${MOD_ORIGINAL}" && out "Backup [${MOD_ORIGINAL}] to [${MOD_FILE}.bak]" && mv "${MOD_ORIGINAL}" "${MOD_FILE}.bak"
-out "Modding [${MOD_ORIGINAL}] with [${MOD_FILE}]" && cp "${MOD_FILE}" "${MOD_ORIGINAL}"
-file_ok "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm "${MOD_REFRESH}"
+f_exists "${MOD_ORIGINAL}" && out "Backup [${MOD_ORIGINAL}] to [${MOD_FILE}.bak]" && mv -v "${MOD_ORIGINAL}" "${MOD_FILE}.bak"
+out "Modding [${MOD_ORIGINAL}] with [${MOD_FILE}]" && cp -v "${MOD_FILE}" "${MOD_ORIGINAL}"
+f_exists "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"

@@ -9,13 +9,14 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 MOD_APP_DIR="${GEMINI_VENDOR}/system/app/vocalizer"
 
 out "App directory [${MOD_APP_DIR}]"
-! dir_ok "${MOD_APP_DIR}" && mkdir -p "${MOD_APP_DIR}"
+! d_exists "${MOD_APP_DIR}" && mkd "${MOD_APP_DIR}"
 
 out "Copy Asset [${MOD_APK}]"
 cp -v "${MOD_APK}" "${MOD_APP_DIR}/vocalizer.apk"
 
 out "Backup vendor makefile  [${VENDOR_MK}] to [${MOD_DIR}/gemini-vendor.mk]"
 cp -v "${VENDOR_MK}" "${MOD_DIR}/gemini-vendor.mk"
+
 out "Backup android  makefile  [${ANDROID_MK}] to [${MOD_DIR}/Android.mk]"
 cp -v "${ANDROID_MK}" "${MOD_DIR}/Android.mk"
 

@@ -13,30 +13,27 @@ MOD_2="${MOD_BASE}/core/res/AndroidManifest.xml"
 MOD_3="${MOD_BASE}/core/res/res/values/config.xml"
 MOD_4="${MOD_BASE}/services/core/java/com/android/server/pm/PackageManagerService.java"
 
-file_ok "${MOD_1}" && out "Backup [${MOD_1}] to [${MODB_1}]" && cp "${MOD_1}" "${MODB_1}"
-file_ok "${MOD_2}" && out "Backup [${MOD_2}] to [${MODB_2}]" && cp "${MOD_2}" "${MODB_2}"
-file_ok "${MOD_3}" && out "Backup [${MOD_3}] to [${MODB_3}]" && cp "${MOD_3}" "${MODB_3}"
-file_ok "${MOD_4}" && out "Backup [${MOD_4}] to [${MODB_4}]" && cp "${MOD_4}" "${MODB_4}"
+f_exists "${MOD_1}" && out "Backup [${MOD_1}] to [${MODB_1}]" && cp -v "${MOD_1}" "${MODB_1}"
+f_exists "${MOD_2}" && out "Backup [${MOD_2}] to [${MODB_2}]" && cp -v "${MOD_2}" "${MODB_2}"
+f_exists "${MOD_3}" && out "Backup [${MOD_3}] to [${MODB_3}]" && cp -v "${MOD_3}" "${MODB_3}"
+f_exists "${MOD_4}" && out "Backup [${MOD_4}] to [${MODB_4}]" && cp -v "${MOD_4}" "${MODB_4}"
 
 out "Patching Base [${MOD_BASE}]."
 out "Copy [${MOD_PATCH}] to [${MOD_BASE}/]"
-cp "${MOD_PATCH}" "${MOD_BASE}/"
+cp -v "${MOD_PATCH}" "${MOD_BASE}/"
 
-cd "${MOD_BASE}" || exit 1
-patch -N -p1 < "android_frameworks_base-M.patch"
+cd "${MOD_BASE}" && patch -p1 < "android_frameworks_base-M.patch"
 
-file_ok "${MOD_1}.orig" && rm -v "${MOD_1}.orig"
-file_ok "${MOD_1}.rej" && rm -v "${MOD_1}.rej"
+f_exists "${MOD_1}.orig" && rm -v "${MOD_1}.orig"
+f_exists "${MOD_1}.rej" && rm -v "${MOD_1}.rej"
 
-file_ok "${MOD_2}.orig" && rm -v "${MOD_2}.orig"
-file_ok "${MOD_2}.rej" && rm -v "${MOD_2}.rej"
+f_exists "${MOD_2}.orig" && rm -v "${MOD_2}.orig"
+f_exists "${MOD_2}.rej" && rm -v "${MOD_2}.rej"
 
-file_ok "${MOD_3}.orig" && rm -v "${MOD_3}.orig"
-file_ok "${MOD_3}.rej" && rm -v "${MOD_3}.rej"
+f_exists "${MOD_3}.orig" && rm -v "${MOD_3}.orig"
+f_exists "${MOD_3}.rej" && rm -v "${MOD_3}.rej"
 
-file_ok "${MOD_4}.orig" && rm -v "${MOD_4}.orig"
-file_ok "${MOD_4}.rej" && rm -v "${MOD_4}.rej"
+f_exists "${MOD_4}.orig" && rm -v "${MOD_4}.orig"
+f_exists "${MOD_4}.rej" && rm -v "${MOD_4}.rej"
 
-file_ok "android_frameworks_base-M.patch" && rm -v "android_frameworks_base-M.patch"
-
-cd "$(get_script_dir)" || exit 1
+f_exists "${MOD_BASE}/android_frameworks_base-M.patch" && rm -v "${MOD_BASE}/android_frameworks_base-M.patch" && cd "$(get_script_dir)"

@@ -9,10 +9,10 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 MOD_APP_DIR="${GEMINI_VENDOR}/system/app/vocalizer"
 
 out "Remove directory [${MOD_APP_DIR}]"
-dir_ok "${MOD_APP_DIR}" && rm -rv "${MOD_APP_DIR}"
+d_exists "${MOD_APP_DIR}" && rm -rv "${MOD_APP_DIR}"
 
 out "Restore vendor makefile  [${VENDOR_MK}] from  [${MOD_DIR}/gemini-vendor.mk]"
-file_ok "${MOD_DIR}/gemini-vendor.mk" && mv -v "${MOD_DIR}/gemini-vendor.mk" "${VENDOR_MK}"
+f_exists "${MOD_DIR}/gemini-vendor.mk" && mv -v "${MOD_DIR}/gemini-vendor.mk" "${VENDOR_MK}"
 
 out "Restore android  makefile  [${ANDROID_MK}] from [${MOD_DIR}/Android.mk]"
-file_ok "${MOD_DIR}/Android.mk" && mv -v "${MOD_DIR}/Android.mk" "${ANDROID_MK}"
+f_exists "${MOD_DIR}/Android.mk" && mv -v "${MOD_DIR}/Android.mk" "${ANDROID_MK}"

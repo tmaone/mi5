@@ -12,14 +12,14 @@ MOD_ORIGINAL_4="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmet
 
 MOD_REFRESH="${OUT_DIR}/target/product/gemini/system/app/LatinIME/LatinIME.apk"
 
-file_ok "${MOD_ORIGINAL_1}" && out "Backup [${MOD_ORIGINAL_1}] to [${MOD_FILE_1}.bak]" && mv "${MOD_ORIGINAL_1}" "${MOD_FILE_1}.bak"
-file_ok "${MOD_ORIGINAL_2}" && out "Backup [${MOD_ORIGINAL_2}] to [${MOD_FILE_2}.bak]" && mv "${MOD_ORIGINAL_2}" "${MOD_FILE_2}.bak"
-file_ok "${MOD_ORIGINAL_3}" && out "Backup [${MOD_ORIGINAL_3}] to [${MOD_FILE_3}.bak]" && mv "${MOD_ORIGINAL_3}" "${MOD_FILE_3}.bak"
-file_ok "${MOD_ORIGINAL_4}" && out "Backup [${MOD_ORIGINAL_4}] to [${MOD_FILE_4}.bak]" && mv "${MOD_ORIGINAL_4}" "${MOD_FILE_4}.bak"
+f_exists "${MOD_ORIGINAL_1}" && out "Backup [${MOD_ORIGINAL_1}] to [${MOD_FILE_1}.bak]" && mv -v "${MOD_ORIGINAL_1}" "${MOD_FILE_1}.bak"
+f_exists "${MOD_ORIGINAL_2}" && out "Backup [${MOD_ORIGINAL_2}] to [${MOD_FILE_2}.bak]" && mv -v "${MOD_ORIGINAL_2}" "${MOD_FILE_2}.bak"
+f_exists "${MOD_ORIGINAL_3}" && out "Backup [${MOD_ORIGINAL_3}] to [${MOD_FILE_3}.bak]" && mv -v "${MOD_ORIGINAL_3}" "${MOD_FILE_3}.bak"
+f_exists "${MOD_ORIGINAL_4}" && out "Backup [${MOD_ORIGINAL_4}] to [${MOD_FILE_4}.bak]" && mv -v "${MOD_ORIGINAL_4}" "${MOD_FILE_4}.bak"
 
-out "Modding [${MOD_ORIGINAL_1}] with [${MOD_FILE_1}]" && cp "${MOD_FILE_1}" "${MOD_ORIGINAL_1}"
-out "Modding [${MOD_ORIGINAL_2}] with [${MOD_FILE_2}]" && cp "${MOD_FILE_2}" "${MOD_ORIGINAL_2}"
-out "Modding [${MOD_ORIGINAL_3}] with [${MOD_FILE_3}]" && cp "${MOD_FILE_3}" "${MOD_ORIGINAL_3}"
-out "Modding [${MOD_ORIGINAL_4}] with [${MOD_FILE_4}]" && cp "${MOD_FILE_4}" "${MOD_ORIGINAL_4}"
+out "Modding [${MOD_ORIGINAL_1}] with [${MOD_FILE_1}]" && cp -v "${MOD_FILE_1}" "${MOD_ORIGINAL_1}"
+out "Modding [${MOD_ORIGINAL_2}] with [${MOD_FILE_2}]" && cp -v "${MOD_FILE_2}" "${MOD_ORIGINAL_2}"
+out "Modding [${MOD_ORIGINAL_3}] with [${MOD_FILE_3}]" && cp -v "${MOD_FILE_3}" "${MOD_ORIGINAL_3}"
+out "Modding [${MOD_ORIGINAL_4}] with [${MOD_FILE_4}]" && cp -v "${MOD_FILE_4}" "${MOD_ORIGINAL_4}"
 
-file_ok "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm "${MOD_REFRESH}"
+f_exists "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"

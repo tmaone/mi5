@@ -10,15 +10,10 @@ MOD_APP="${GEMINI_VENDOR}/system/app/"
 MOD_APP_APK="com.android.vending.apk"
 
 out "App directory [${MOD_APP}]"
-! dir_ok "${MOD_APP}" && mkdir -p "${MOD_APP}"
+! d_exists "${MOD_APP}" && mkd "${MOD_APP}"
 
 out "Copy Asset [${MOD_APK}]"
 cp -v "${MOD_APK}" "${MOD_APP}/${MOD_APP_APK}"
-
-# out "Backup vendor makefile  [${VENDOR_MK}] to [${MOD_DIR}/gemini-vendor.mk]"
-# cp -v "${VENDOR_MK}" "${MOD_DIR}/gemini-vendor.mk"
-# out "Backup android  makefile  [${ANDROID_MK}] to [${MOD_DIR}/Android.mk]"
-# cp -v "${ANDROID_MK}" "${MOD_DIR}/Android.mk"
 
 append()
 {
