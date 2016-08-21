@@ -126,6 +126,23 @@ modded()
   [ ${MODDED} == 1 ] && return 0 || return 1
 }
 
+print_help()
+{
+  for lib in "${MI5_LIBS[@]}"
+  do
+  	out $(basename ${lib})
+  done
+}
+
+init_dirs()
+{
+  ! exists "${ANDROID_ROOT}" && mkd "${ANDROID_ROOT}"
+  ! exists "${ANDROID_CCACHE_DIR}" && mkd "${ANDROID_CCACHE_DIR}"
+  ! exists "${OUT_DIR}" && mkd "${OUT_DIR}"
+  ! exists "${ROM_DIR}" && mkd "${ROM_DIR}"
+  ! exists "${APK_DIR}" && mkd "${APK_DIR}"
+}
+
 # vars
 # init
 

@@ -30,12 +30,23 @@ export ROM_DIR="${MI5_ROOT}/rom"
 ##########################################
 export MODS_DIR="${MI5_ROOT}/mods"
 
+# Mi5 APKs Vars
+##########################################
+export APK_DIR="${MI5_ROOT}/apk"
+
 # Mi5 Custom Manifest Vars
 ##########################################
 export MANIFEST="mi5.xml"
 
-
-
+# ! exists "${ANDROID_ROOT}" && mkd "${ANDROID_ROOT}" || out "-- ${ANDROID_ROOT} ok."
+# ! exists "${REPO_ROOT}" && cd "${ANDROID_ROOT}" && repo init -u "${CYANOGEN_REPO}" -b "${CYANOGEN_BRANCH}" --depth=1 || out "-- ${REPO_ROOT} ok."
+# ! exists "${LOCAL_MANIFESTS}" && cd "${REPO_ROOT}" && git clone "${CUSTOM_REPO}" "${LOCAL_MANIFESTS}" || out "-- ${LOCAL_MANIFESTS} ok."
+# ! exists "${LOCAL_MANIFESTS}/${CUSTOM_MANIFEST}" && cp "${MI5_ROOT}/${CUSTOM_MANIFEST}" "${LOCAL_MANIFESTS}/${CUSTOM_MANIFEST}" || out "-- ${LOCAL_MANIFESTS}/${CUSTOM_MANIFEST} ok."
+# ! exists "${ANDROID_CCACHE_DIR}" && mkd "${ANDROID_CCACHE_DIR}" || out "-- ${ANDROID_CCACHE_DIR} ok."
+# ! exists "${OUT_DIR}" && mkd "${OUT_DIR}" || out "-- ${OUT_DIR} ok."
+# ! exists "${ANDROID_CCACHE_DIR}/CACHEDIR.TAG" && CCACHE_DIR="${ANDROID_CCACHE_DIR}" ccache -M "${ANDROID_CCACHE_SIZE}" || out "-- ${ANDROID_CCACHE_DIR}/CACHEDIR.TAG ok."
+# ! exists "${MI5_INIT}" && out "MODDED=0" > "${MI5_INIT}"
+#
 # [ x${} == "" ] || exit 1
 # export MI5_ROOT="$(get_script_dir)"
 # export MI5_INIT="${MI5_ROOT}/.init"
