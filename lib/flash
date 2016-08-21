@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export RECOVERY_IMG="${IMG_DIR}/twrp-recovery.img"
+
 check_dev()
 {
 	fastboot getvar product 2>&1 | grep "^product: *MSM8996$"
@@ -20,7 +22,8 @@ flash_splash()
 
 flash_recovery()
 {
-	echo reco
+	fastboot flash recovery "${RECOVERY_IMG}"
+	if [ $? -ne 0 ] ; then echo "Flash splash error"; exit 1; fi
 }
 
 flash_radio()
