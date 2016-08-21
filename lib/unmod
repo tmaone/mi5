@@ -2,7 +2,15 @@
 
 unmod()
 {
-  echo unmod
+  exists "${MODS_CONFIG}" && source "${MODS_CONFIG}"
+  for mod in "${MODS[@]}"
+  do
+    out "--[${mod}]"
+    if f_exists "${MODS_DIR}/${mod}/${mod}"; then
+      . "${MODS_DIR}/${mod}/${mod}"
+      "${mod}_disable"
+    fi
+  done
 }
 # . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
 #
@@ -17,3 +25,5 @@ unmod()
 # 		out "MODDED=0" > "${MI5_INIT}"
 #   fi
 # done
+# exists "${MODS_CONFIG}" && source "${MODS_CONFIG}"
+#

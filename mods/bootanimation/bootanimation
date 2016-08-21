@@ -2,7 +2,6 @@ BOOTANIMATION_ORIGINAL="${ANDROID_ROOT}/vendor/cm/prebuilt/common/bootanimation/
 BOOTANIMATION_MOD="${MODS_DIR}/bootanimation/bootanimation.zip"
 BOOTANIMATION_REFRESH="${OUT_DIR}/target/product/gemini/system/media/bootanimation.zip"
 
-
 bootanimation_enable()
 {
 	f_exists "${BOOTANIMATION_MOD}.bak" && return 1
@@ -13,6 +12,7 @@ bootanimation_enable()
 
 bootanimation_disable()
 {
+	! f_exists "${BOOTANIMATION_MOD}.bak" && return 1
 	f_exists "${BOOTANIMATION_MOD}.bak" && out "Restore backup [${BOOTANIMATION_MOD}.bak] to [${BOOTANIMATION_ORIGINAL}]" && mv -v "${BOOTANIMATION_MOD}.bak" "${BOOTANIMATION_ORIGINAL}"
 	f_exists "${BOOTANIMATION_REFRESH}" && out "Trigerring refresh [${BOOTANIMATION_REFRESH}]" && rm -v "${BOOTANIMATION_REFRESH}"
 }
