@@ -4,24 +4,32 @@ make()
 {
 	setup_env
 	! exists "${ANDROID_ROOT}/build/envsetup.sh" && sync
-	echo make
-	# "${ANDROID_ROOT}"
-	# . "build/envsetup.sh"
-}
 
-# . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
-#
-# ulimit -S -n 1024
-# unset GREP_OPTIONS
-#
-# if [ "$(uname)" == "Darwin" ]; then
-# 	export MAC_SDK_VERSION='10.11'
-# 	export ANDROID_HOME=/usr/local/opt/android-sdk
-# fi
-#
-# exists "${ANDROID_ROOT}" && cd "${ANDROID_ROOT}"
-# . "build/envsetup.sh"
-# brunch cm_gemini-userdebug
-# out "^^^ Build Complete ^^^^"
-#
-# #
+	ulimit -S -n 1024
+	unset GREP_OPTIONS
+
+	if [ "$(uname)" == "Darwin" ]; then
+		export MAC_SDK_VERSION='10.11'
+		export ANDROID_HOME=/usr/local/opt/android-sdk
+	fi
+
+	if [ $# -eq 2 ]; then
+		case "$2" in
+			mod)	mod;;
+			stock)	unmod;;
+			*)
+				echo >&2 \
+				"unknown target: $2"
+				exit 1;;
+		esac
+	fi
+
+	cd "${ANDROID_ROOT}"
+
+	. "build/envsetup.sh"
+	echo brunch cm_gemini-userdebug
+	brunch cm_gemini-userdebug
+	out "^^^ Build Complete ^^^^"
+
+	cd "${MI5_ROOT}"
+}
