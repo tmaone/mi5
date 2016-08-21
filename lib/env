@@ -33,6 +33,10 @@ export MODS_DIR="${MI5_ROOT}/mods"
 ##########################################
 export APK_DIR="${MI5_ROOT}/apk"
 
+# Mi5 IMG Vars
+##########################################
+export IMG_DIR="${MI5_ROOT}/img"
+
 # Mi5 Custom Manifest Vars
 ##########################################
 export MANIFEST="mi5.xml"

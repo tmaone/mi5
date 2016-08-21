@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+check_dev()
+{
+	fastboot getvar product 2>&1 | grep "^product: *MSM8996$"
+	if [ $? -ne 0 ] ; then
+		echo "Missmatching image and device";
+		exit 1;
+	else
+		return 0
+	fi
+}
+
+flash_splash()
+{
+	splash
+	fastboot flash splash "${SPLASH_IMG}"
+	if [ $? -ne 0 ] ; then echo "Flash splash error"; exit 1; fi
+}
+
+flash_recovery()
+{
+	echo reco
+}
+
+flash_radio()
+{
+	echo rad
+}
+
+flash()
+{
+	cd "${MI5_ROOT}"
+
+	check_dev
+
+	if [ $# -eq 2 ]; then
+		case "$2" in
+			splash) flash_splash;;
+			recovery)	flash_recovery;;
+			radio)	flash_radio;;
+			*)
+				echo >&2 \
+				"unknown flash target: $2"
+				exit 1;;
+		esac
+	fi
+
+}

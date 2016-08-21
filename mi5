@@ -30,8 +30,10 @@ do
 		make)	make "$@"; shift;;
 		mod)	mod;;
 		sync)	sync;;
+		flash) flash "$@"; shift;;
 		unmod)	unmod;;
 		purge)	purge;;
+		splash)	splash;;
 		*)
 			echo >&2 \
 			"usage: $0 [command]"

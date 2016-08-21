@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+export LOGO_IMG="${MI5_ROOT}/media/logo.png"
+export SPLASH_IMG="${IMG_DIR}/splash.img"
+export SPLASH_UTIL="${MI5_ROOT}/util/splash.py"
+
+splash_init()
+{
+	pip install --upgrade pip setuptools
+	pip install --upgrade pillow
+}
+
+splash()
+{
+	splash_init
+	cd "${IMG_DIR}" && python "${SPLASH_UTIL}" "${LOGO_IMG}"
+}

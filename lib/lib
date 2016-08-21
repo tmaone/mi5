@@ -80,6 +80,7 @@ init_dirs()
   ! exists "${OUT_DIR}" && mkd "${OUT_DIR}"
   ! exists "${ROM_DIR}" && mkd "${ROM_DIR}"
   ! exists "${APK_DIR}" && mkd "${APK_DIR}"
+  ! exists "${IMG_DIR}" && mkd "${IMG_DIR}"
 }
 
 print_help()
