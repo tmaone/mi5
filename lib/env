@@ -9,7 +9,7 @@ export CM_BRANCH="cm-13.0"
 
 # Mi5 Dev Vars
 ##########################################
-export ANDROID_REPO="https://github.com/tmaone/android.git"
+export ANDROID_REPO="https://github.com/Mi5Devs/android.git"
 
 # Mi5 CCACHE Vars
 ##########################################

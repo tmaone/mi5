@@ -33,11 +33,48 @@ flash_original()
 	exists "flash_all.sh" && echo sh flash_all.sh
 }
 
+_flash()
+{
+	if [ $# -eq 2 ]; then
+		fastboot flash "${1}" "${2}"
+	fi
+}
+
 flash_radio()
 {
 	get_miui_rom
-	! exists "${ROM_DIR}/miui-rom" && exit 1;
-	echo yeah
+
+	exists "${ROM_DIR}/miui-rom/firmware-update" && cd "${ROM_DIR}/miui-rom/firmware-update" || exit 1;
+
+	_flash "cmnlib64" "cmnlib64.mbn"
+	_flash "cmnlib" "cmnlib.mbn"
+	_flash "hyp" "hyp.mbn"
+	_flash "pmic" "pmic.elf"
+	_flash "tz" "tz.mbn"
+	_flash "aboot" "emmc_appsboot.mbn"
+	_flash "devcfg" "devcfg.mbn"
+	_flash "keymaster" "keymaster.mbn"
+	_flash "xbl" "xbl.elf"
+	_flash "rpm" "rpm.mbn"
+	_flash "modem" "NON-HLOS.bin"
+	_flash "logo" "logo.img"
+	_flash "dsp" "adspso.bin"
+	_flash "bluetooth" "BTFM.bin"
+
+	_flash "cmnlib64bak" "cmnlib64.mbn"
+	_flash "cmnlibbak" "cmnlib.mbn"
+	_flash "hypbak" "hyp.mbn"
+	_flash "pmicbak" "pmic.elf"
+	_flash "tzbak" "tz.mbn"
+	_flash "abootbak" "emmc_appsboot.mbn"
+	_flash "devcfgbak" "devcfg.mbn"
+	_flash "keymasterbak" "keymaster.mbn"
+	_flash "xblbak" "xbl.elf"
+	_flash "rpmbak" "rpm.mbn"
+
+	flash_splash
+
+	cd ${MI5_ROOT}
 }
 
 flash()
