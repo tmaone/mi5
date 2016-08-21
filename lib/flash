@@ -23,12 +23,21 @@ flash_splash()
 flash_recovery()
 {
 	fastboot flash recovery "${RECOVERY_IMG}"
-	if [ $? -ne 0 ] ; then echo "Flash splash error"; exit 1; fi
+	if [ $? -ne 0 ] ; then echo "Flash recovery error"; exit 1; fi
+}
+
+flash_original()
+{
+	get_miui_fastboot
+	exists "${ROM_DIR}/miui-fastboot" && cd "${ROM_DIR}/miui-fastboot"
+	exists "flash_all.sh" && echo sh flash_all.sh
 }
 
 flash_radio()
 {
-	echo rad
+	get_miui_rom
+	! exists "${ROM_DIR}/miui-rom" && exit 1;
+	echo yeah
 }
 
 flash()
@@ -42,6 +51,7 @@ flash()
 			splash) flash_splash;;
 			recovery)	flash_recovery;;
 			radio)	flash_radio;;
+			original) flash_original;;
 			*)
 				echo >&2 \
 				"unknown flash target: $2"

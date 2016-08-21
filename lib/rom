@@ -5,18 +5,20 @@ export MIUI_VER='6.8.18'
 export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
 export MIUI_FASTBOOT='gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
 
-get_miui()
+get_miui_rom()
 {
+  exists "${ROM_DIR}/.miuirom" && return 0
+  cd "${ROM_DIR}"
   wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_ROM}" -c --show-progress -P "${ROM_DIR}"
-  wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_FASTBOOT}" -c --show-progress -P "${ROM_DIR}"
+  unzip "${MIUI_ROM}" -d "miui-rom" && touch "${ROM_DIR}/.miuirom"
 }
 
-extract_miui()
+get_miui_fastboot()
 {
+  exists "${ROM_DIR}/.miuifastboot" && return 0
   cd "${ROM_DIR}"
-  unzip "${MIUI_ROM}" -d "miui-rom"
-  tar xvf "${MIUI_FASTBOOT}" && mv -v "gemini_global_images_6.8.18_20160805.0000.29_6.0_global" "miui-fastboot"
-  cd "${MI5_ROOT}"
+  wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_FASTBOOT}" -c --show-progress -P "${ROM_DIR}"
+  tar xvf "${MIUI_FASTBOOT}" && mv -v "gemini_global_images_6.8.18_20160805.0000.29_6.0_global" "miui-fastboot" && touch "${ROM_DIR}/.miuifastboot"
 }
 
 rom()
