@@ -1,0 +1,24 @@
+[ x${} == "" ] || exit 1
+
+
+export MI5_ROOT="$(get_script_dir)"
+export MI5_INIT="${MI5_ROOT}/.init"
+export CYANOGEN_REPO="https://github.com/CyanogenMod/android.git"
+export CYANOGEN_BRANCH="cm-13.0"
+export CUSTOM_REPO="https://github.com/tmaone/android.git"
+export ANDROID_ROOT="${MI5_ROOT}/android"
+export REPO_ROOT="${ANDROID_ROOT}/.repo"
+export LOCAL_MANIFESTS="${REPO_ROOT}/local_manifests"
+export CUSTOM_MANIFEST="mi5.xml"
+export USE_CCACHE=1
+export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
+export ANDROID_CCACHE_SIZE="50G"
+export MODS_DIR="${MI5_ROOT}/mods"
+export MODS_CONFIG="${MODS_DIR}/config"
+export OUT_DIR="${MI5_ROOT}/build"
+
+
+ROM_MIUI='http://bigota.d.miui.com/6.8.18/gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
+
+
+APP_FDROID='https://f-droid.org/FDroid.apk'
