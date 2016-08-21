@@ -2,7 +2,18 @@
 
 mod()
 {
-  echo mod
+
+  exists "${MODS_CONFIG}" && source "${MODS_CONFIG}"
+
+  for mod in "${MODS[@]}"
+  do
+    if f_exists "${MODS_DIR}/${mod}/${mod}"; then
+      out "--[${mod}]"
+      . "${MODS_DIR}/${mod}/${mod}"
+      "${mod}_enable"
+    fi
+  done
+
 }
 # . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
 # #
@@ -17,3 +28,40 @@ mod()
 # # 		out "MODDED=1" > "${MI5_INIT}"
 # #   fi
 # # done
+
+
+#!/usr/bin/env bash
+
+# make()
+# {
+# 	setup_env
+# 	! exists "${ANDROID_ROOT}/build/envsetup.sh" && sync
+#
+# 	ulimit -S -n 1024
+# 	unset GREP_OPTIONS
+#
+# 	if [ "$(uname)" == "Darwin" ]; then
+# 		export MAC_SDK_VERSION='10.11'
+# 		export ANDROID_HOME=/usr/local/opt/android-sdk
+# 	fi
+#
+# 	if [ $# -eq 2 ]; then
+# 		case "$2" in
+# 			mod)	mod;;
+# 			stock)	unmod;;
+# 			*)
+# 				echo >&2 \
+# 				"unknown target: $2"
+# 				exit 1;;
+# 		esac
+# 	fi
+#
+# 	cd "${ANDROID_ROOT}"
+#
+# 	. "build/envsetup.sh"
+# 	echo brunch cm_gemini-userdebug
+# 	brunch cm_gemini-userdebug
+# 	out "^^^ Build Complete ^^^^"
+#
+# 	cd "${MI5_ROOT}"
+# }

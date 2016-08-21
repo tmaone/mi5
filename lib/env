@@ -28,6 +28,7 @@ export ROM_DIR="${MI5_ROOT}/rom"
 # Mi5 MODS Vars
 ##########################################
 export MODS_DIR="${MI5_ROOT}/mods"
+export MODS_CONFIG="${MI5_ROOT}/mods.cfg"
 
 # Mi5 APKs Vars
 ##########################################
