@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+purge()
+{
+  exists "${ANDROID_ROOT}" && rm -rfv "${ANDROID_ROOT}"
+  exists "${ANDROID_CCACHE}" && rm -rfv "${ANDROID_CCACHE}"
+}

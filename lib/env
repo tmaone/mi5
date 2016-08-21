@@ -1,6 +1,29 @@
+export ANDROID_ROOT="${MI5_ROOT}/android"
+export ANDROID_CCACHE="${MI5_ROOT}/ccache"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # [ x${} == "" ] || exit 1
-
-
 # export MI5_ROOT="$(get_script_dir)"
 # export MI5_INIT="${MI5_ROOT}/.init"
 # export CYANOGEN_REPO="https://github.com/CyanogenMod/android.git"

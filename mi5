@@ -27,6 +27,7 @@ do
 		mod)	mod;;
 		sync)	sync;;
 		unmod) unmod;;
+		purge) purge;;
 		*)
 			echo >&2 \
 			"usage: $0 [command]"
