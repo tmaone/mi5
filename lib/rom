@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rom()
+{
+  echo rom
+}

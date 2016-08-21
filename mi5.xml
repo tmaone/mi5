@@ -13,9 +13,9 @@
   <project path="packages/apps/YahooWeatherProvider" name="CyanogenMod/android_packages_apps_YahooWeatherProvider" remote="github" revision="cm-13.0" />
 
   <!-- add MicroG Not baked no good -->
-  <!-- <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" /> -->
-  <!-- <project path="packages/apps/GsfProxy" name="microg/android_packages_apps_GsfProxy" remote="github" revision="master" /> -->
-  <!-- <project path="packages/apps/FakeStore" name="microg/android_packages_apps_FakeStore" remote="github" revision="master" /> -->
+  <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" />
+  <project path="packages/apps/GsfProxy" name="microg/android_packages_apps_GsfProxy" remote="github" revision="master" />
+  <project path="packages/apps/FakeStore" name="microg/android_packages_apps_FakeStore" remote="github" revision="master" />
 
   <!-- apps UnifiedNlp not baked no good -->
   <project name="microg/android_packages_apps_UnifiedNlp" path="packages/apps/UnifiedNlp" remote="github" revision="master"/>
