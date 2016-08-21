@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
 
-export MIUI_LATEST='http://bigota.d.miui.com/6.8.18/miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
-export MIUI_FASTBOOT='http://bigota.d.miui.com/6.8.18/gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
+export MIUI_BASE='http://bigota.d.miui.com'
+export MIUI_VER='6.8.18'
+export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
+export MIUI_FASTBOOT='gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
+
+get_miui()
+{
+  wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_ROM}" -c --show-progress -P "${ROM_DIR}"
+  wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_FASTBOOT}" -c --show-progress -P "${ROM_DIR}"
+}
+
+extract_miui()
+{
+  cd "${ROM_DIR}"
+  unzip "${MIUI_ROM}" -d "miui-rom"
+  tar xvf "${MIUI_FASTBOOT}" && mv -v "gemini_global_images_6.8.18_20160805.0000.29_6.0_global" "miui-fastboot"
+  cd "${MI5_ROOT}"
+}
 
 rom()
 {
-  
+  get_miui
+  extract_miui
 }
