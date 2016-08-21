@@ -1,7 +1,6 @@
 # Mi5 Env Vars
 ##########################################
 export ANDROID_ROOT="${MI5_ROOT}/android"
-export ANDROID_CCACHE="${MI5_ROOT}/ccache"
 
 # CM13 Env Vars
 ##########################################
@@ -16,7 +15,7 @@ export ANDROID_REPO="https://github.com/tmaone/android.git"
 ##########################################
 export USE_CCACHE=1
 export ANDROID_CCACHE_SIZE="50G"
-export ANDROID_CCACHE_DIR="${ANDROID_CCACHE}"
+export ANDROID_CCACHE_DIR="${MI5_ROOT}/ccache"
 
 # Mi5 Build Vars
 ##########################################
