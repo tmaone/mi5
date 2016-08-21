@@ -10,7 +10,26 @@ while [ -h "$SOURCE" ]; do
 		 [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
 done
 
-export MI5_ROOT="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+MI5_ROOT="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+MI5_LIB="${MI5_ROOT}/lib"
+MI5_LIBS=(${MI5_LIB}/*)
+
+for lib in "${MI5_LIBS[@]}"
+do
+	source "${lib}"
+done
+
+clean
+# env
+# lib
+make
+mod
+sync
+unmod
+
+
+
+
 
 
 

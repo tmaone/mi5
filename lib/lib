@@ -119,31 +119,6 @@ init()
   ! exists "${MI5_INIT}" && do_init || do_update
 }
 
-clean()
-{
-  return 0
-}
-
-make()
-{
-  return 0
-}
-
-mod()
-{
-  return 0
-}
-
-sync()
-{
-  return 0
-}
-
-unmod()
-{
-  return 0
-}
-
 modded()
 {
   exists "${MI5_INIT}" || do_init
@@ -152,7 +127,7 @@ modded()
 }
 
 # vars
-init
+# init
 
 # # if dir_ok "${MODS_DIR}/${mod}"; then
 # #   if file_ok "${MODS_DIR}/${mod}/files"; then

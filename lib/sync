@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-. "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
-
-modded && unmod
-cd "${ANDROID_ROOT}" && repo sync -c -j8
-modded && mod
-cd "${MI5_ROOT}"
+sync()
+{
+	echo sync
+}
+# . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
 #
+# modded && unmod
+# cd "${ANDROID_ROOT}" && repo sync -c -j8
+# modded && mod
+# cd "${MI5_ROOT}"
+# #
