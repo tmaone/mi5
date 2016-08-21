@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-. "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
-
-# mods_disable
-
-# rm -rfv $ANDROID_ROOT
-# rm -rfv $ANDROID_CCACHE_DIR
-# rm -fv  $MI5_ROOT/.init

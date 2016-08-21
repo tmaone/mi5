@@ -1,4 +1,6 @@
 android
 ccache
 build
+tmp
 .init
+.env
