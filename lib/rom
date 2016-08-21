@@ -23,6 +23,6 @@ get_miui_fastboot()
 
 rom()
 {
-  get_miui
-  extract_miui
+  get_miui_rom
+  get_miui_fastboot
 }
