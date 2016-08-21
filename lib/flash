@@ -30,7 +30,7 @@ flash_original()
 {
 	get_miui_fastboot
 	exists "${ROM_DIR}/miui-fastboot" && cd "${ROM_DIR}/miui-fastboot"
-	exists "flash_all.sh" && echo sh flash_all.sh
+	exists "flash_all.sh" && sh flash_all.sh
 }
 
 _flash()
