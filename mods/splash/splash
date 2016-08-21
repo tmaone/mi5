@@ -1,22 +1,19 @@
-SPLASH_FILE="${IMG_DIR}/splash.img"
-MOD_ORIGINAL="${ANDROID_ROOT}/vendor/xiaomi/gemini/radio/splash.img"
-MOD_REFRESH="${OUT_DIR}/target/product/gemini/splash.img"
-
-f_exists "${MOD_ORIGINAL}" && out "Backup [${MOD_ORIGINAL}] to [${MOD_FILE}.bak]" && mv -v "${MOD_ORIGINAL}" "${MOD_FILE}.bak"
-out "Modding [${MOD_ORIGINAL}] with [${MOD_FILE}]" && cp -v "${MOD_FILE}" "${MOD_ORIGINAL}"
-f_exists "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"
-
-MOD_FILE="${MODS_DIR}/splash/splash.img"
-MOD_ORIGINAL="${ANDROID_ROOT}/vendor/xiaomi/gemini/radio/splash.img"
-MOD_REFRESH="${OUT_DIR}/target/product/gemini/splash.img"
-
-f_exists "${MOD_FILE}.bak" && out "Restore backup [${MOD_FILE}.bak] to [${MOD_ORIGINAL}]" && mv -v "${MOD_FILE}.bak" "${MOD_ORIGINAL}"
-f_exists "${MOD_REFRESH}" && out "Trigerring refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"
+SPLASH_FILESMAP="device/xiaomi/gemini/radio/filesmap"
+SPLASH_PATH="vendor/xiaomi/gemini/radio"
+SPLASH_FILE="$(basename ${SPLASH_IMG})"
 
 splash_enable()
 {
+	f_exists "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}" && return 1
+	splash
+	cp -v "${SPLASH_IMG}" "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}"
+	echo "" >> "${ANDROID_ROOT}/${SPLASH_FILESMAP}"
+	echo 'splash.img              /dev/block/bootdevice/by-name/splash' >> "${ANDROID_ROOT}/${SPLASH_FILESMAP}"
+	echo "" >> "${ANDROID_ROOT}/${SPLASH_FILESMAP}"
 }
 
-splash_enable()
+splash_disable()
 {
+	! f_exists "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}" && return 1
+	rm -v "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}"
 }
