@@ -1,6 +1,6 @@
 android
 ccache
 build
+rom
+apk
 tmp
-.init
-.env

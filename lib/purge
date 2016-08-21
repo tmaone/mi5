@@ -5,4 +5,7 @@ purge()
   exists "${ANDROID_ROOT}" && rm -rfv "${ANDROID_ROOT}"
   exists "${ANDROID_CCACHE}" && rm -rfv "${ANDROID_CCACHE}"
   exists "${OUT_DIR}" && rm -rfv "${OUT_DIR}"
+  exists "${ROM_DIR}" && rm -rfv "${ROM_DIR}"
+  exists "${APK_DIR}" && rm -rfv "${APK_DIR}"
+
 }
