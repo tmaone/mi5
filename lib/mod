@@ -7,8 +7,8 @@ mod()
 
   for mod in "${MODS[@]}"
   do
+    out "--[${mod}]"
     if f_exists "${MODS_DIR}/${mod}/${mod}"; then
-      out "--[${mod}]"
       . "${MODS_DIR}/${mod}/${mod}"
       "${mod}_enable"
     fi
