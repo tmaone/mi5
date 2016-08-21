@@ -2,7 +2,8 @@
 
 sync()
 {
-	echo sync
+	setup_env
+	cd "${ANDROID_ROOT}" && repo sync -c -j8
 }
 # . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
 #
@@ -11,3 +12,5 @@ sync()
 # modded && mod
 # cd "${MI5_ROOT}"
 # #
+# ! exists "${ANDROID_ROOT}/build/envsetup.sh" && sync
+# echo sync

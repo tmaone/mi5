@@ -3,6 +3,10 @@
 make()
 {
 	setup_env
+	! exists "${ANDROID_ROOT}/build/envsetup.sh" && sync
+	echo make
+	# "${ANDROID_ROOT}"
+	# . "build/envsetup.sh"
 }
 
 # . "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/util"
