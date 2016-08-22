@@ -10,7 +10,7 @@ fdroid_enable()
 {
 	! f_exists "${FDROID_MOD_PATH}/${FDROID_APP}" && wget "${FDROID_URL_BASE}/${FDROID_APP}" -c --show-progress -P "${FDROID_MOD_PATH}"
 	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
-	! f_exists "${GEMINI_VENDOR}/system/app/${FDROID_APP}" && cp -v "${FDROID_MOD_PATH}/${FDROID_APP}" "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
+	! f_exists "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk" && cp -v "${FDROID_MOD_PATH}/${FDROID_APP}" "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
 
 	! contains "${ANDROID_MK}" 'org.fdroid.fdroid' && {
 		append "${ANDROID_MK}" ''
