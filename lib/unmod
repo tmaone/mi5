@@ -3,6 +3,14 @@
 unmod()
 {
   exists "${MODS_CONFIG}" && source "${MODS_CONFIG}"
+
+  for backup in "${MODS_BACKUP[@]}"
+  do
+    if f_exists "${MODS_DIR}/$(basename $backup).bak"; then
+      mv -v "${MODS_DIR}/$(basename ${backup}).bak" "${ANDROID_ROOT}/${backup}"
+    fi
+  done
+
   for mod in "${MODS[@]}"
   do
     out "--[${mod}]"

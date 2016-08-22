@@ -10,7 +10,7 @@ EL_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethod
 SV_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_sv.dict"
 EN_GB_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_uk.dict"
 
-DICT_LATINIME_SO="${MOD_FILE_PATH}/libjni_latinimegoogle.so"
+DICT_LATINIME_SO="${DICT_FILE_PATH}/libjni_latinimegoogle.so"
 
 GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
