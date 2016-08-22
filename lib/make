@@ -10,7 +10,7 @@ make()
 
 	if [ "$(uname)" == "Darwin" ]; then
 		export MAC_SDK_VERSION='10.11'
-		export ANDROID_HOME=/usr/local/opt/android-sdk
+		export ANDROID_HOME='/usr/local/opt/android-sdk'
 	fi
 
 	if [ $# -eq 2 ]; then
