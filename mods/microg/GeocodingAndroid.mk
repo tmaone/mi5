@@ -7,7 +7,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_PACKAGE_NAME := NominatimGeocoderBackend
 
 geoco_root  := $(LOCAL_PATH)
-geoco_out   := $(PWD)/$(OUT_DIR)/target/common/obj/APPS/$(LOCAL_MODULE)_intermediates
+geoco_out   := $(OUT_DIR)/target/common/obj/APPS/$(LOCAL_MODULE)_intermediates
 geoco_build := $(geoco_root)/build
 geoco_apk   := build/outputs/apk/$(LOCAL_MODULE)-release-unsigned.apk
 

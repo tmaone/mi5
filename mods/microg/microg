@@ -2,7 +2,7 @@ MICROG_MOD_PATH="${MODS_DIR}/microg"
 
 MICROG_GMS='https://microg.org/fdroid/repo/com.google.android.gms-9452266.apk'
 MICROG_GSF='https://microg.org/fdroid/repo/com.google.android.gsf-8.apk'
-MICROG_NLP='https://codeload.github.com/microg/android_packages_apps_UnifiedNlp/zip/v1.6.7'
+MICROG_NLP='https://f-droid.org/repo/com.google.android.gms_20170.apk'
 
 NLP_GSM='https://f-droid.org/repo/org.fitchfamily.android.wifi_backend_35.apk'
 NLP_WIFI='https://f-droid.org/repo/org.fitchfamily.android.gsmlocation_54.apk'
@@ -16,41 +16,169 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 microg_enable()
 {
 
-	# ! f_exists "${FDROID_MOD_PATH}/${FDROID_APP}" && wget "${FDROID_URL_BASE}/${FDROID_APP}" -c --show-progress -P "${FDROID_MOD_PATH}"
-	# ! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
-	# ! f_exists "${GEMINI_VENDOR}/system/app/${FDROID_APP}" && cp -v "${FDROID_MOD_PATH}/${FDROID_APP}" "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
-	#
-	# ! contains "${ANDROID_MK}" 'org.fdroid.fdroid' && {
-	# 	append "${ANDROID_MK}" ''
-	# 	append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
-	# 	append "${ANDROID_MK}" ''
-	# 	append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE := org.fdroid.fdroid'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
-	# 	append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/org.fdroid.fdroid.apk'
-	# 	append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
-	# 	append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
-	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
-	# 	append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
-	# 	append "${ANDROID_MK}" ''
-	# 	append "${ANDROID_MK}" 'endif'
-	# 	append "${ANDROID_MK}" ''
-	# }
+	! f_exists "${MICROG_MOD_PATH}/com.google.android.gms-9452266.apk" && wget "${MICROG_GMS}" -c --show-progress -P "${MICROG_MOD_PATH}"
+	! f_exists "${MICROG_MOD_PATH}/com.google.android.gsf-8.apk" && wget "${MICROG_GSF}" -c --show-progress -P "${MICROG_MOD_PATH}"
+	! f_exists "${MICROG_MOD_PATH}/com.google.android.gms_20170.apk" && wget "${MICROG_NLP}" -c --show-progress -P "${MICROG_MOD_PATH}"
 
-	# ! contains "${VENDOR_MK}" 'org.fdroid.fdroid' && {
-	# 	append "${VENDOR_MK}" ''
-	# 	append "${VENDOR_MK}" 'PRODUCT_PACKAGES += org.fdroid.fdroid'
-	# 	append "${VENDOR_MK}" ''
-	# }
+	! f_exists "${MICROG_MOD_PATH}/org.fitchfamily.android.wifi_backend_35.apk" && wget "${NLP_GSM}" -c --show-progress -P "${MICROG_MOD_PATH}"
+	! f_exists "${MICROG_MOD_PATH}/org.fitchfamily.android.gsmlocation_54.apk" && wget "${NLP_WIFI}" -c --show-progress -P "${MICROG_MOD_PATH}"
+
+	! f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk" && cp -v "${NLP_GEO_MK}" "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk"
+
+	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
+
+	! f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gms-9452266.apk" "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk"
+	! f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gsf-8.apk" "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk"
+	! f_exists "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gms_20170.apk" "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk"
+
+	! f_exists "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.wifi.apk" && cp -v "${MICROG_MOD_PATH}/org.fitchfamily.android.wifi_backend_35.apk" "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.wifi.apk"
+	! f_exists "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk" && cp -v "${MICROG_MOD_PATH}/org.fitchfamily.android.gsmlocation_54.apk" "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk"
+
+	! contains "${ANDROID_MK}" 'com.google.android.gms' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := com.google.android.gms'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/com.google.android.gms.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${ANDROID_MK}" 'com.google.android.gsf' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := com.google.android.gsf'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/com.google.android.gsf.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${ANDROID_MK}" 'org.microg.unifiednlp' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := org.microg.unifiednlp'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/org.microg.unifiednlp.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${ANDROID_MK}" 'org.fitchfamily.android.wifi' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := org.fitchfamily.android.wifi'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/org.fitchfamily.android.wifi.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${ANDROID_MK}" 'org.fitchfamily.android.gsm' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := org.fitchfamily.android.gsm'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/org.fitchfamily.android.gsm.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+
+	! contains "${VENDOR_MK}" 'com.google.android.gms' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += com.google.android.gms'
+		append "${VENDOR_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'com.google.android.gsf' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += com.google.android.gsf'
+		append "${VENDOR_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'org.microg.unifiednlp' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += org.microg.unifiednlp'
+		append "${VENDOR_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'org.fitchfamily.android.wifi' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += org.fitchfamily.android.wifi'
+		append "${VENDOR_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'org.fitchfamily.android.gsm' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += org.fitchfamily.android.gsm'
+		append "${VENDOR_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'NominatimGeocoderBackend' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += NominatimGeocoderBackend'
+		append "${VENDOR_MK}" ''
+	}
 
 }
 
 microg_disable()
 {
-	# f_exists "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk" && rm -v "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk" && rm -v "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.wifi.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.wifi.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk"
+	f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk" && rm -v "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk"
 }
-
-#
