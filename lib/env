@@ -42,6 +42,11 @@ export IMG_DIR="${MI5_ROOT}/img"
 ##########################################
 export MANIFEST="mi5.xml"
 
+# Mi5 Custom Manifest Vars
+##########################################
+export CELLS_DIR="${MI5_ROOT}/cells"
+
+
 # ! exists "${ANDROID_ROOT}" && mkd "${ANDROID_ROOT}" || out "-- ${ANDROID_ROOT} ok."
 # ! exists "${REPO_ROOT}" && cd "${ANDROID_ROOT}" && repo init -u "${CYANOGEN_REPO}" -b "${CYANOGEN_BRANCH}" --depth=1 || out "-- ${REPO_ROOT} ok."
 # ! exists "${LOCAL_MANIFESTS}" && cd "${REPO_ROOT}" && git clone "${CUSTOM_REPO}" "${LOCAL_MANIFESTS}" || out "-- ${LOCAL_MANIFESTS} ok."

@@ -36,6 +36,7 @@ do
 		splash)	splash;;
 		rom)	rom;;
 		update) update;;
+		cells) cells;;
 		*)
 			echo >&2 \
 			"usage: $0 [command]"
