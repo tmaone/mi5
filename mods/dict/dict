@@ -1,0 +1,126 @@
+DICT_FILE_PATH="${MODS_DIR}/dict"
+
+EN_US_DICT="${DICT_FILE_PATH}/main_en_us_d3_20160322.dict"
+EL_DICT="${DICT_FILE_PATH}/main_el_d3_20160402.dict"
+SV_DICT="${DICT_FILE_PATH}/main_sv_d3_20160402.dict"
+EN_GB_DICT="${DICT_FILE_PATH}/main_en_gb_d3_20160422.dict"
+
+EN_US_ORIGINAL="${ANDROID_ROOT}/packages/inputmethods/LatinIME/java/res/raw/main_en.dict"
+EL_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_el.dict"
+SV_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_sv.dict"
+EN_GB_ORIGINAL="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_uk.dict"
+
+DICT_LATINIME_SO="${MOD_FILE_PATH}/libjni_latinimegoogle.so"
+
+dict_enable()
+{
+
+	! f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_ORIGINAL}" "${EN_US_DICT}.bak"
+	! f_exists "${EL_DICT}.bak" && "${EL_ORIGINAL}" "${EL_DICT}.bak"
+	! f_exists "${SV_DICT}.bak" && "${SV_ORIGINAL}" "${SV_DICT}.bak"
+	! f_exists "${EN_GB_DICT}.bak" && "${EN_GB_ORIGINAL}" "${EN_GB_DICT}.bak"
+
+
+}
+
+dict_disable()
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+# MOD_KEYBOARD_SO="${MOD_FILE_PATH}/libjni_keyboarddecoder.so"
+#
+# MOD_REFRESH="${OUT_DIR}/target/product/gemini/system/app/LatinIME/LatinIME.apk"
+#
+# f_exists "${MOD_ORIGINAL_1}" && out "Backup [${MOD_ORIGINAL_1}] to [${MOD_FILE_1}.bak]" && mv -v "${MOD_ORIGINAL_1}" "${MOD_FILE_1}.bak"
+# f_exists "${MOD_ORIGINAL_2}" && out "Backup [${MOD_ORIGINAL_2}] to [${MOD_FILE_2}.bak]" && mv -v "${MOD_ORIGINAL_2}" "${MOD_FILE_2}.bak"
+# f_exists "${MOD_ORIGINAL_3}" && out "Backup [${MOD_ORIGINAL_3}] to [${MOD_FILE_3}.bak]" && mv -v "${MOD_ORIGINAL_3}" "${MOD_FILE_3}.bak"
+# f_exists "${MOD_ORIGINAL_4}" && out "Backup [${MOD_ORIGINAL_4}] to [${MOD_FILE_4}.bak]" && mv -v "${MOD_ORIGINAL_4}" "${MOD_FILE_4}.bak"
+#
+# out "Modding [${MOD_ORIGINAL_1}] with [${MOD_FILE_1}]" && cp -v "${MOD_FILE_1}" "${MOD_ORIGINAL_1}"
+# out "Modding [${MOD_ORIGINAL_2}] with [${MOD_FILE_2}]" && cp -v "${MOD_FILE_2}" "${MOD_ORIGINAL_2}"
+# out "Modding [${MOD_ORIGINAL_3}] with [${MOD_FILE_3}]" && cp -v "${MOD_FILE_3}" "${MOD_ORIGINAL_3}"
+# out "Modding [${MOD_ORIGINAL_4}] with [${MOD_FILE_4}]" && cp -v "${MOD_FILE_4}" "${MOD_ORIGINAL_4}"
+#
+# GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+# VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+# ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+#
+# append()
+# {
+# 	echo "${@}"
+# 	echo "${@}" >> "${ANDROID_MK}"
+# }
+#
+# vappend()
+# {
+# 	echo "${@}"
+# 	echo "${@}" >> "${VENDOR_MK}"
+# }
+#
+# cp -v "${MOD_LATINIME_SO}" "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
+# cp -v "${MOD_KEYBOARD_SO}" "${GEMINI_VENDOR}/proprietary/lib64/libjni_keyboarddecoder.so"
+#
+# vappend ''
+# vappend 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libjni_latinimegoogle.so:system/lib64/libjni_latinimegoogle.so'
+# vappend ''
+#
+# vappend ''
+# vappend 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libjni_keyboarddecoder.so:system/lib64/libjni_keyboarddecoder.so'
+# vappend ''
+#
+# vappend ''
+# vappend 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libjni_latinimegoogle.so:system/app/LatinIME/lib/arm64/libjni_latinimegoogle.so'
+# vappend ''
+#
+# vappend ''
+# vappend 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libjni_keyboarddecoder.so:system/app/LatinIME/lib/arm64/libjni_keyboarddecoder.so'
+# vappend ''
+#
+#
+# # PRODUCT_COPY_FILES += \
+#     # vendor/xiaomi/gemini/proprietary/bin/adsprpcd:system/bin/adsprpcd \
+#
+#
+# f_exists "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"
+#
+#
+#
+#
+# MOD_FILE_PATH="${MODS_DIR}/dict"
+#
+# MOD_FILE_1="${MOD_FILE_PATH}/main_en_us_d3_20160322.dict"
+# MOD_FILE_2="${MOD_FILE_PATH}/main_el_d3_20160402.dict"
+# MOD_FILE_3="${MOD_FILE_PATH}/main_sv_d3_20160402.dict"
+# MOD_FILE_4="${MOD_FILE_PATH}/main_en_gb_d3_20160422.dict"
+#
+# MOD_ORIGINAL_1="${ANDROID_ROOT}/packages/inputmethods/LatinIME/java/res/raw/main_en.dict"
+# MOD_ORIGINAL_2="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_el.dict"
+# MOD_ORIGINAL_3="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_sv.dict"
+# MOD_ORIGINAL_4="${ANDROID_ROOT}/vendor/cm/overlay/dictionaries/packages/inputmethods/LatinIME/java/res/raw/main_uk.dict"
+#
+# MOD_REFRESH="${OUT_DIR}/target/product/gemini/system/app/LatinIME/LatinIME.apk"
+#
+# f_exists "${MOD_FILE_1}.bak" && out "Restore backup [${MOD_FILE_1}.bak] to [${MOD_ORIGINAL_1}]" && mv -v "${MOD_FILE_1}.bak" "${MOD_ORIGINAL_1}"
+# f_exists "${MOD_FILE_2}.bak" && out "Restore backup [${MOD_FILE_2}.bak] to [${MOD_ORIGINAL_2}]" && mv -v "${MOD_FILE_2}.bak" "${MOD_ORIGINAL_2}"
+# f_exists "${MOD_FILE_3}.bak" && out "Restore backup [${MOD_FILE_3}.bak] to [${MOD_ORIGINAL_3}]" && mv -v "${MOD_FILE_3}.bak" "${MOD_ORIGINAL_3}"
+# f_exists "${MOD_FILE_4}.bak" && out "Restore backup [${MOD_FILE_4}.bak] to [${MOD_ORIGINAL_4}]" && mv -v "${MOD_FILE_4}.bak" "${MOD_ORIGINAL_4}"
+#
+# GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+#
+# f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
+# f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_keyboarddecoder.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libjni_keyboarddecoder.so"
+#
+# f_exists "${MOD_REFRESH}" && out "Triggering refresh [${MOD_REFRESH}]" && rm -v "${MOD_REFRESH}"
