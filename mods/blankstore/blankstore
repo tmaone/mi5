@@ -1,0 +1,61 @@
+BLANKSTORE_MOD_APP="${MODS_DIR}/blankstore/BlankStore.apk"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+blankstore_enable()
+{
+
+	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
+	! f_exists "${GEMINI_VENDOR}/system/app/com.android.vending.apk" && cp -v "${BLANKSTORE_MOD_APP}" "${GEMINI_VENDOR}/system/app/com.android.vending.apk"
+
+	! contains "${ANDROID_MK}" 'com.android.vending' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := com.android.vending'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/com.android.vending.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'com.android.vending' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += com.android.vending'
+		append "${VENDOR_MK}" ''
+	}
+
+}
+
+blankstore_disable()
+{
+	f_exists "${GEMINI_VENDOR}/system/app/com.android.vending.apk" && rm -v "${BLANKSTORE_MOD_APP}" "${GEMINI_VENDOR}/system/app/com.android.vending.apk"
+}
+
+
+
+#
+# MOD_DIR="${MODS_DIR}/blankstore"
+#
+# MOD_APK="${MOD_DIR}/BlankStore.apk"
+#
+# GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+#
+# VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+# ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+#
+# MOD_APP="${GEMINI_VENDOR}/system/priv-app/Phonesky"
+#
+# out "Remove directory [${MOD_APP}]"
+# d_exists "${MOD_APP}" && rm -rv "${MOD_APP}"

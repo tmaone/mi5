@@ -1,0 +1,18 @@
+WEATHER_MOD="${MODS_DIR}/weather/YahooAndroid.mk"
+WEATHER_MOD_PATH="${ANDROID_ROOT}/packages/apps/YahooWeatherProvider"
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini/gemini-vendor.mk"
+
+weather_enable()
+{
+	! f_exists "${WEATHER_MOD_PATH}/Android.mk" && cp -v "${WEATHER_MOD}" "${WEATHER_MOD_PATH}/Android.mk"
+	! contains "${GEMINI_VENDOR}" "YahooWeatherProvider" && {
+		append "${GEMINI_VENDOR}" ''
+		append "${GEMINI_VENDOR}" 'PRODUCT_PACKAGES += YahooWeatherProvider'
+		append "${GEMINI_VENDOR}" ''
+	}
+}
+
+weather_disable()
+{
+	f_exists "${WEATHER_MOD_PATH}/Android.mk" && rm -vf "${WEATHER_MOD_PATH}/Android.mk"
+}
