@@ -40,7 +40,7 @@ blankstore_enable()
 
 blankstore_disable()
 {
-	f_exists "${GEMINI_VENDOR}/system/app/com.android.vending.apk" && rm -v "${BLANKSTORE_MOD_APP}" "${GEMINI_VENDOR}/system/app/com.android.vending.apk"
+	f_exists "${GEMINI_VENDOR}/system/app/com.android.vending.apk" && rm -v "${GEMINI_VENDOR}/system/app/com.android.vending.apk"
 }
 
 

@@ -1,0 +1,56 @@
+MICROG_MOD_PATH="${MODS_DIR}/microg"
+
+MICROG_GMS='https://microg.org/fdroid/repo/com.google.android.gms-9452266.apk'
+MICROG_GSF='https://microg.org/fdroid/repo/com.google.android.gsf-8.apk'
+MICROG_NLP='https://codeload.github.com/microg/android_packages_apps_UnifiedNlp/zip/v1.6.7'
+
+NLP_GSM='https://f-droid.org/repo/org.fitchfamily.android.wifi_backend_35.apk'
+NLP_WIFI='https://f-droid.org/repo/org.fitchfamily.android.gsmlocation_54.apk'
+
+NLP_GEO_MK="${MICROG_MOD_PATH}/GeocodingAndroid.mk"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+microg_enable()
+{
+
+	# ! f_exists "${FDROID_MOD_PATH}/${FDROID_APP}" && wget "${FDROID_URL_BASE}/${FDROID_APP}" -c --show-progress -P "${FDROID_MOD_PATH}"
+	# ! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
+	# ! f_exists "${GEMINI_VENDOR}/system/app/${FDROID_APP}" && cp -v "${FDROID_MOD_PATH}/${FDROID_APP}" "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
+	#
+	# ! contains "${ANDROID_MK}" 'org.fdroid.fdroid' && {
+	# 	append "${ANDROID_MK}" ''
+	# 	append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+	# 	append "${ANDROID_MK}" ''
+	# 	append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE := org.fdroid.fdroid'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+	# 	append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/org.fdroid.fdroid.apk'
+	# 	append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+	# 	append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+	# 	append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+	# 	append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+	# 	append "${ANDROID_MK}" ''
+	# 	append "${ANDROID_MK}" 'endif'
+	# 	append "${ANDROID_MK}" ''
+	# }
+
+	# ! contains "${VENDOR_MK}" 'org.fdroid.fdroid' && {
+	# 	append "${VENDOR_MK}" ''
+	# 	append "${VENDOR_MK}" 'PRODUCT_PACKAGES += org.fdroid.fdroid'
+	# 	append "${VENDOR_MK}" ''
+	# }
+
+}
+
+microg_disable()
+{
+	# f_exists "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.fdroid.fdroid.apk"
+}
+
+#
