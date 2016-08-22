@@ -20,15 +20,15 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 dict_enable()
 {
 
-	! f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_ORIGINAL}" "${EN_US_DICT}.bak"
-	! f_exists "${EL_DICT}.bak" && mv -v "${EL_ORIGINAL}" "${EL_DICT}.bak"
-	! f_exists "${SV_DICT}.bak" && mv -v "${SV_ORIGINAL}" "${SV_DICT}.bak"
-	! f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_ORIGINAL}" "${EN_GB_DICT}.bak"
-
-	cp -v "${EN_US_DICT}" "${EN_US_ORIGINAL}"
-	cp -v "${EL_DICT}" "${EL_ORIGINAL}"
-	cp -v "${SV_DICT}" "${SV_ORIGINAL}"
-	cp -v "${EN_GB_DICT}" "${EN_GB_ORIGINAL}"
+	# ! f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_ORIGINAL}" "${EN_US_DICT}.bak"
+	# ! f_exists "${EL_DICT}.bak" && mv -v "${EL_ORIGINAL}" "${EL_DICT}.bak"
+	# ! f_exists "${SV_DICT}.bak" && mv -v "${SV_ORIGINAL}" "${SV_DICT}.bak"
+	# ! f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_ORIGINAL}" "${EN_GB_DICT}.bak"
+	#
+	# cp -v "${EN_US_DICT}" "${EN_US_ORIGINAL}"
+	# cp -v "${EL_DICT}" "${EL_ORIGINAL}"
+	# cp -v "${SV_DICT}" "${SV_ORIGINAL}"
+	# cp -v "${EN_GB_DICT}" "${EN_GB_ORIGINAL}"
 
 	! f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so" && cp -v "${DICT_LATINIME_SO}" "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
 
@@ -43,10 +43,10 @@ dict_enable()
 dict_disable()
 {
 
-	f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_DICT}.bak" "${EN_US_ORIGINAL}"
-	f_exists "${EL_DICT}.bak" && mv -v "${EL_DICT}.bak" "${EL_ORIGINAL}"
-	f_exists "${SV_DICT}.bak" && mv -v "${SV_DICT}.bak" "${SV_ORIGINAL}"
-	f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_DICT}.bak" "${EN_GB_ORIGINAL}"
+	# f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_DICT}.bak" "${EN_US_ORIGINAL}"
+	# f_exists "${EL_DICT}.bak" && mv -v "${EL_DICT}.bak" "${EL_ORIGINAL}"
+	# f_exists "${SV_DICT}.bak" && mv -v "${SV_DICT}.bak" "${SV_ORIGINAL}"
+	# f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_DICT}.bak" "${EN_GB_ORIGINAL}"
 
 	f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
 
