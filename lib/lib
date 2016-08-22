@@ -73,6 +73,16 @@ entries()
   done
 }
 
+contains()
+{
+  [ "$(grep "${2}" "${1}" | wc -l)" -gt 0 ] && return 0 || return 1
+}
+
+append()
+{
+  echo "${2}" >> "${1}"
+}
+
 init_dirs()
 {
   ! exists "${ANDROID_ROOT}" && mkd "${ANDROID_ROOT}"
