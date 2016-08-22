@@ -186,5 +186,6 @@ microg_disable()
 	f_exists "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.fitchfamily.android.gsm.apk"
 	f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk" && rm -v "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk"
 	f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/local.properties" && rm -v "${ANDROID_ROOT}/external/NominatimGeocoderBackend/local.properties"
+	d_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/build" && rm -rfv "${ANDROID_ROOT}/external/NominatimGeocoderBackend/build"
 
 }
