@@ -101,6 +101,11 @@ print_help()
   done
 }
 
+secret()
+{
+  f_exists "${SECRET}" && source "${SECRET}" && return 0 || return 1
+}
+
 setup_env()
 {
   # repo

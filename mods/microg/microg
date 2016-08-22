@@ -179,6 +179,7 @@ microg_enable()
 
 microg_disable()
 {
+
 	f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk" && rm -v "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk"
 	f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk" && rm -v "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk"
 	f_exists "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk" && rm -v "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk"
