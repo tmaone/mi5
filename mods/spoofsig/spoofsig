@@ -1,5 +1,5 @@
 SPOOFSIG_PATH="${MODS_DIR}/spoofsig"
-SPOOFSIF_PATCH="${SPOOFSIG_PATH}/android_frameworks_base-M.patch"
+SPOOFSIG_PATCH="${SPOOFSIG_PATH}/android_frameworks_base-M.patch"
 
 SPOOFSIG_MOD_BASE="${ANDROID_ROOT}/frameworks/base"
 
@@ -16,76 +16,19 @@ spoofsig_enable()
 	! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" && cp -v "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE3}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}"
 	! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" && cp -v "${SPOOFSIG_MOD_BASE}/services/core/java/com/android/server/pm/${SPOOFSIG_FILE4}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}"
 
-	echo on
+	cp -v "${SPOOFSIG_PATCH}" "${SPOOFSIG_MOD_BASE}/$(basename ${SPOOFSIG_PATCH})"
+	cd "${SPOOFSIG_MOD_BASE}" && patch -N -p1 < $(basename ${SPOOFSIG_PATCH})
+	rm -v "${SPOOFSIG_MOD_BASE}/$(basename ${SPOOFSIG_PATCH})"
+
+	find "${SPOOFSIG_MOD_BASE}" -name '*.orig' -exec rm -v '{}' \;
+	find "${SPOOFSIG_MOD_BASE}" -name '*.rej' -exec rm -v '{}' \;
 
 }
 
 spoofsig_disable()
 {
-	echo off
+	f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}" "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE1}"
+	f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}" "${SPOOFSIG_MOD_BASE}/core/res/${SPOOFSIG_FILE2}"
+	f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE3}"
+	f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" "${SPOOFSIG_MOD_BASE}/services/core/java/com/android/server/pm/${SPOOFSIG_FILE4}"
 }
-
-# MODB_1="${MOD_DIR}/strings.xml"
-# MODB_2="${MOD_DIR}/AndroidManifest.xml"
-# MODB_3="${MOD_DIR}/config.xml"
-# MODB_4="${MOD_DIR}/PackageManagerService.java"
-
-#
-# MOD_1="${MOD_BASE}/core/res/res/values/strings.xml"
-# MOD_2="${MOD_BASE}/core/res/AndroidManifest.xml"
-# MOD_3="${MOD_BASE}/core/res/res/values/config.xml"
-# MOD_4="${MOD_BASE}/services/core/java/com/android/server/pm/PackageManagerService.java"
-#
-# f_exists "${MOD_1}" && out "Backup [${MOD_1}] to [${MODB_1}]" && cp -v "${MOD_1}" "${MODB_1}"
-# f_exists "${MOD_2}" && out "Backup [${MOD_2}] to [${MODB_2}]" && cp -v "${MOD_2}" "${MODB_2}"
-# f_exists "${MOD_3}" && out "Backup [${MOD_3}] to [${MODB_3}]" && cp -v "${MOD_3}" "${MODB_3}"
-# f_exists "${MOD_4}" && out "Backup [${MOD_4}] to [${MODB_4}]" && cp -v "${MOD_4}" "${MODB_4}"
-#
-# out "Patching Base [${MOD_BASE}]."
-# out "Copy [${MOD_PATCH}] to [${MOD_BASE}/]"
-# cp -v "${MOD_PATCH}" "${MOD_BASE}/"
-#
-# cd "${MOD_BASE}" && patch -p1 < "android_frameworks_base-M.patch"
-#
-# f_exists "${MOD_1}.orig" && rm -v "${MOD_1}.orig"
-# f_exists "${MOD_1}.rej" && rm -v "${MOD_1}.rej"
-#
-# f_exists "${MOD_2}.orig" && rm -v "${MOD_2}.orig"
-# f_exists "${MOD_2}.rej" && rm -v "${MOD_2}.rej"
-#
-# f_exists "${MOD_3}.orig" && rm -v "${MOD_3}.orig"
-# f_exists "${MOD_3}.rej" && rm -v "${MOD_3}.rej"
-#
-# f_exists "${MOD_4}.orig" && rm -v "${MOD_4}.orig"
-# f_exists "${MOD_4}.rej" && rm -v "${MOD_4}.rej"
-#
-# f_exists "${MOD_BASE}/android_frameworks_base-M.patch" && rm -v "${MOD_BASE}/android_frameworks_base-M.patch" && cd "$(get_script_dir)"
-#
-#
-#
-# MOD_DIR="${MODS_DIR}/spoofsig"
-#
-# MODB_1="${MOD_DIR}/strings.xml"
-# MODB_2="${MOD_DIR}/AndroidManifest.xml"
-# MODB_3="${MOD_DIR}/config.xml"
-# MODB_4="${MOD_DIR}/PackageManagerService.java"
-#
-# MOD_BASE="${ANDROID_ROOT}/frameworks/base"
-#
-# MOD_1="${MOD_BASE}/core/res/res/values/strings.xml"
-# MOD_2="${MOD_BASE}/core/res/AndroidManifest.xml"
-# MOD_3="${MOD_BASE}/core/res/res/values/config.xml"
-# MOD_4="${MOD_BASE}/services/core/java/com/android/server/pm/PackageManagerService.java"
-#
-# f_exists "${MODB_1}" && out "Restore [${MODB_1}] to [${MOD_1}]" && mv -v "${MODB_1}" "${MOD_1}"
-# f_exists "${MODB_2}" && out "Restore [${MODB_2}] to [${MOD_2}]" && mv -v "${MODB_2}" "${MOD_2}"
-# f_exists "${MODB_3}" && out "Restore [${MODB_3}] to [${MOD_3}]" && mv -v "${MODB_3}" "${MOD_3}"
-# f_exists "${MODB_4}" && out "Restore [${MODB_4}] to [${MOD_4}]" && mv -v "${MODB_4}" "${MOD_4}"
-#
-#
-#
-#
-#
-#
-#
-# #
