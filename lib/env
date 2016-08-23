@@ -50,6 +50,10 @@ export CELLS_DIR="${MI5_ROOT}/cells"
 ##########################################
 export SECRET="${MI5_ROOT}/.secret"
 
+# Mi5 sdcard  Vars
+##########################################
+export SDCARD="${MI5_ROOT}/sdcard"
+
 
 
 # ! exists "${ANDROID_ROOT}" && mkd "${ANDROID_ROOT}" || out "-- ${ANDROID_ROOT} ok."

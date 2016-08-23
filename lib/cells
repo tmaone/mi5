@@ -4,35 +4,37 @@ export CELLS_GIT='https://github.com/n76/lacells-creator.git'
 export CELLS_BIN='lacells-creator'
 export CELLS_CFG='creator.cfg'
 
-cells()
+cells_init()
 {
+
 	! d_exists "${CELLS_DIR}" && mkd "${CELLS_DIR}"
 	! d_exists "${CELLS_DIR}/.git" && git clone "${CELLS_GIT}" "${CELLS_DIR}"
+	! d_exists "${SDCARD}/.db" && mkd "${SDCARD}/.db"
 
-	
-
-  # get_miui_rom
-  # get_miui_fastboot
 }
 
+cells_download()
+{
 
+	f_exists "${CELLS_DIR}/date" && export CELLS_DATE="$(source ${CELLS_DIR}/date)"
 
+	if [ ! "${CELLS_DATE}" -eq "$(date '+%d')" ]; then
+		secret && API_KEY="${API_KEY}" ./"${CELLS_BIN}" -d && date "+%d" > "${CELLS_DIR}/date"
+	fi
 
+}
 
+cells()
+{
 
+	cells_init
 
-# get_miui_rom()
-# {
-#   exists "${ROM_DIR}/.miuirom" && return 0
-#   cd "${ROM_DIR}"
-#   wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_ROM}" -c --show-progress -P "${ROM_DIR}"
-#   unzip "${MIUI_ROM}" -d "miui-rom" && touch "${ROM_DIR}/.miuirom"
-# }
-#
-# get_miui_fastboot()
-# {
-#   exists "${ROM_DIR}/.miuifastboot" && return 0
-#   cd "${ROM_DIR}"
-#   wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_FASTBOOT}" -c --show-progress -P "${ROM_DIR}"
-#   tar xvf "${MIUI_FASTBOOT}" && mv -v "gemini_global_images_6.8.18_20160805.0000.29_6.0_global" "miui-fastboot" && touch "${ROM_DIR}/.miuifastboot"
-# }
+	f_exists "${CELLS_DIR}/lacells.db" && rm -v "${CELLS_DIR}/lacells.db"
+
+	cd "${CELLS_DIR}"
+	# secret && echo $API_KEY $MCC
+	# secret && API_KEY="${API_KEY}" ./"${CELLS_BIN}" -d -i -m -c"${MCC}" && date "+%d" > "${CELLS_DIR}/date"
+	f_exists "${CELLS_DIR}/lacells.db" && cp -v "${CELLS_DIR}/lacells.db" "${SDCARD}/.db/lacells.db"
+	cd "${MI5_ROOOT}"
+
+}
