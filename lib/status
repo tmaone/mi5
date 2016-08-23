@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+status()
+{
+	setup_env
+	cd "${ANDROID_ROOT}" && repo status
+	cd "${MI5_ROOT}"
+}

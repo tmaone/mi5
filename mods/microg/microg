@@ -23,11 +23,11 @@ microg_enable()
 	! f_exists "${MICROG_MOD_PATH}/org.fitchfamily.android.wifi_backend_35.apk" && wget "${NLP_GSM}" -c --show-progress -P "${MICROG_MOD_PATH}"
 	! f_exists "${MICROG_MOD_PATH}/org.fitchfamily.android.gsmlocation_54.apk" && wget "${NLP_WIFI}" -c --show-progress -P "${MICROG_MOD_PATH}"
 
-	! f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk" && cp -v "${NLP_GEO_MK}" "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk"›
+	! f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk" && cp -v "${NLP_GEO_MK}" "${ANDROID_ROOT}/external/NominatimGeocoderBackend/Android.mk"
 
 	! f_exists "${ANDROID_ROOT}/external/NominatimGeocoderBackend/local.properties" && echo "sdk.dir $ANDROID_HOME" > "${ANDROID_ROOT}/external/NominatimGeocoderBackend/local.properties"
 
-	cp -v "${MICROG_MOD_PATH}/build.gradle" "${ANDROID_ROOT}/external/NominatimGeocoderBackend/build.gradle"
+	cp "${MICROG_MOD_PATH}/build.gradle" "${ANDROID_ROOT}/external/NominatimGeocoderBackend/build.gradle"
 
 	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
 

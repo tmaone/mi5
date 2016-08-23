@@ -34,9 +34,10 @@ do
 		unmod)	unmod;;
 		purge)	purge;;
 		splash)	splash;;
-		rom)	rom;;
+		rom)	rom "$@"; shift;;
 		update) update;;
 		cells) cells;;
+		status) status;;
 		*)
 			echo >&2 \
 			"usage: $0 [command]"

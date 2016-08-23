@@ -1,16 +1,25 @@
 #!/usr/bin/env bash
 
-export MIUI_BASE='http://bigota.d.miui.com'
-export MIUI_VER='6.8.18'
-export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
+# 6.8.18 Global Dev
+######################################
 export MIUI_FASTBOOT='gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
+export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
+
+# 6.8.23
+######################################
+export MIUI_ROM='http://bigota.d.miui.com/6.8.23/miui_MI5_6.8.23_47e61a6323_6.0.zip'
+
+export DAT2IMG_UTIL="${MI5_ROOT}/util/sdat2img.py"
+
+export MIUI_ROM_DIR="${ROM_DIR}/miui-rom"
+export MIUI_FASTBOOT_DIR="${ROM_DIR}/miui-fastboot"
 
 get_miui_rom()
 {
   exists "${ROM_DIR}/.miuirom" && return 0
   cd "${ROM_DIR}"
-  wget "${MIUI_BASE}/${MIUI_VER}/${MIUI_ROM}" -c --show-progress -P "${ROM_DIR}"
-  unzip "${MIUI_ROM}" -d "miui-rom" && touch "${ROM_DIR}/.miuirom"
+  wget "${MIUI_ROM}" -c --show-progress -P "${ROM_DIR}"
+  unzip "${ROM_DIR}/$(basename ${MIUI_ROM})" -d "${MIUI_ROM_DIR}" && touch "${ROM_DIR}/.miuirom"
 }
 
 get_miui_fastboot()
@@ -21,8 +30,58 @@ get_miui_fastboot()
   tar xvf "${MIUI_FASTBOOT}" && mv -v "gemini_global_images_6.8.18_20160805.0000.29_6.0_global" "miui-fastboot" && touch "${ROM_DIR}/.miuifastboot"
 }
 
+convert_system_img()
+{
+  ! f_exists "${MIUI_ROM_DIR}/system.new.dat" && get_miui_rom
+  ! f_exists "${MIUI_ROM_DIR}/system.img" && "${DAT2IMG_UTIL}" "${MIUI_ROM_DIR}/system.transfer.list" "${MIUI_ROM_DIR}/system.new.dat" "${MIUI_ROM_DIR}/system.img"
+}
+
+unpack_system()
+{
+  ! f_exists "${MIUI_ROM_DIR}/system.img" && convert_system_img
+  f_exists "${MIUI_ROM_DIR}/system.done" && return 0
+  ! d_exists "${MIUI_ROM_DIR}/system.d" && mkd "${MIUI_ROM_DIR}/system.d"
+  ! d_exists "${MIUI_ROM_DIR}/system" && mkd "${MIUI_ROM_DIR}/system"
+  ext4fuse "${MIUI_ROM_DIR}/system.img" "${MIUI_ROM_DIR}/system.d"
+  rsync -rlptDvz "${MIUI_ROM_DIR}/system.d/" "${MIUI_ROM_DIR}/system"
+  umount "${MIUI_ROM_DIR}/system.d"
+  d_exists "${MIUI_ROM_DIR}/system/recovery-from-boot.p" && touch "${MIUI_ROM_DIR}/system.done"
+}
+
+rom_clean_system()
+{
+  f_exists "${MIUI_ROM_DIR}/system.done" && rm -v "${MIUI_ROM_DIR}/system.done"
+  f_exists "${MIUI_ROM_DIR}/system.img" && rm -v "${MIUI_ROM_DIR}/system.img"
+  d_exists "${MIUI_ROM_DIR}/system.d" && rm -rfv "${MIUI_ROM_DIR}/system.d"
+  d_exists "${MIUI_ROM_DIR}/system" && rm -rfv "${MIUI_ROM_DIR}/system"
+}
+
+rom_clean()
+{
+  d_exists "${MIUI_ROM_DIR}" && rm -rfv "${MIUI_ROM_DIR}"
+  f_exists "${ROM_DIR}/.miuirom" && rm -v "${ROM_DIR}/.miuirom"
+}
+
 rom()
 {
-  get_miui_rom
-  get_miui_fastboot
+
+	if [ $# -eq 2 ]; then
+		case "$2" in
+			clean) rom_clean;;
+			get)	get_miui_rom;;
+			convert)	convert_system_img;;
+			unpack) unpack_system;;
+			*)
+				echo >&2 \
+				"unknown flash target: $2"
+				exit 1;;
+		esac
+	fi
+
+  # unpack_system
+  # get_miui_rom
+  # convert_system_img
+  #
+  # # clean_system
+  # unpack_system
 }
