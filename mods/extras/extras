@@ -15,6 +15,8 @@ GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 
+LIBQCMEDIAPLAYER='libqcmediaplayer.so'
+LIBQCMEDIAPLAYER64='libqcmediaplayer64.so'
 
 extras_enable()
 {
@@ -263,6 +265,33 @@ extras_enable()
 			append "${VENDOR_MK}" 'PRODUCT_PACKAGES += ModThemeChooser'
 			append "${VENDOR_MK}" ''
 		}
+
+		! f_exists "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so" && cp -v "${EXTRAS_MOD_PATH}/${LIBQCMEDIAPLAYER}" "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so"
+		! f_exists "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so" && cp -v "${EXTRAS_MOD_PATH}/${LIBQCMEDIAPLAYER64}" "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so"
+
+		! contains "${VENDOR_MK}" "libqcmediaplayer.so" && {
+				append "${VENDOR_MK}" ''
+				append "${VENDOR_MK}" 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib/libqcmediaplayer.so:system/lib/libqcmediaplayer.so'
+				append "${VENDOR_MK}" ''
+				append "${VENDOR_MK}" ''
+				append "${VENDOR_MK}" 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libqcmediaplayer.so:system/lib64/libqcmediaplayer.so'
+				append "${VENDOR_MK}" ''
+			}
+
+		}
+
+		dict_disable()
+		{
+
+			# f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_DICT}.bak" "${EN_US_ORIGINAL}"
+			# f_exists "${EL_DICT}.bak" && mv -v "${EL_DICT}.bak" "${EL_ORIGINAL}"
+			# f_exists "${SV_DICT}.bak" && mv -v "${SV_DICT}.bak" "${SV_ORIGINAL}"
+			# f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_DICT}.bak" "${EN_GB_ORIGINAL}"
+
+			f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
+
+			f_exists "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so"
+			f_exists "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so"
 
 		# // ! contains "${VENDOR_MK}" 'ThemeStore' && {
 		# // 	append "${VENDOR_MK}" ''
