@@ -44,7 +44,7 @@ export MANIFEST="mi5.xml"
 
 # Mi5 Cells DB  Vars
 ##########################################
-export CELLS_DIR="${MI5_ROOT}/cells"
+# export CELLS_DIR="${MI5_ROOT}/cells"
 
 # Mi5 Secrets  Vars
 ##########################################

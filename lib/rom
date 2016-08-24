@@ -10,6 +10,7 @@ export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
 export MIUI_ROM='http://bigota.d.miui.com/6.8.23/miui_MI5_6.8.23_47e61a6323_6.0.zip'
 
 export DAT2IMG_UTIL="${MI5_ROOT}/util/sdat2img.py"
+export UNPACKBOOTIMG_UTIL="${MI5_ROOT}/util/unpackbootimg"
 
 export MIUI_ROM_DIR="${ROM_DIR}/miui-rom"
 export MIUI_FASTBOOT_DIR="${ROM_DIR}/miui-fastboot"
@@ -45,7 +46,15 @@ unpack_system()
   ext4fuse "${MIUI_ROM_DIR}/system.img" "${MIUI_ROM_DIR}/system.d"
   rsync -rlptDvz "${MIUI_ROM_DIR}/system.d/" "${MIUI_ROM_DIR}/system"
   umount "${MIUI_ROM_DIR}/system.d"
-  d_exists "${MIUI_ROM_DIR}/system/recovery-from-boot.p" && touch "${MIUI_ROM_DIR}/system.done"
+  f_exists "${MIUI_ROM_DIR}/system/build.prop" && touch "${MIUI_ROM_DIR}/system.done"
+}
+
+unpack_boot()
+{
+  ! f_exists "${MIUI_ROM_DIR}/boot.img" && get_miui_rom
+  f_exists "${MIUI_ROM_DIR}/boot.done" && return 0
+  ! f_exists "${MIUI_ROM_DIR}/boot.img-zImage" && "${UNPACKBOOTIMG_UTIL}" -i "${MIUI_ROM_DIR}/boot.img" -o "${MIUI_ROM_DIR}"
+  f_exists "${MIUI_ROM_DIR}/boot.img-zImage" && touch "${MIUI_ROM_DIR}/boot.done"
 }
 
 rom_clean_system()
@@ -70,7 +79,7 @@ rom()
 			clean) rom_clean;;
 			get)	get_miui_rom;;
 			convert)	convert_system_img;;
-			unpack) unpack_system;;
+			unpack) unpack_system; unpack_boot;;
 			*)
 				echo >&2 \
 				"unknown flash target: $2"

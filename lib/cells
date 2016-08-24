@@ -1,40 +1,112 @@
 #!/usr/bin/env bash
 
-export CELLS_GIT='https://github.com/n76/lacells-creator.git'
-export CELLS_BIN='lacells-creator'
-export CELLS_CFG='creator.cfg'
+# export CELLS_CFG='creator.cfg'
+# export CELLS_GIT='https://github.com/n76/lacells-creator.git'
+
+# export LACELLS_UTIL="${MI5_ROOT}/util/lacells"
+
+export RADIO="GSM|UMTS|LTE"	#you can remove LTE if your phone does not support it
+export NW=`date -u "+%Y-%m-%d"`
+
+export LACELLS_PUSH_LOCATION='/sdcard/Android/data/org.fitchfamily.android.gsmlocation/files/'
+
+cells_download_mozilla()
+{
+	echo "Downloading mozilla data"
+	wget -qO- "https://d17pt8qph6ncyq.cloudfront.net/export/MLS-full-cell-export-${NW}T000000.csv.gz" | gunzip | egrep "^($RADIO),($MCC)," > $MOZ_FILE &
+	MO=$!
+	wait $MO
+}
+
+cells_download_ocid()
+{
+	echo "Downloading ocid data"
+	wget -qO- "http://opencellid.org/downloads/?apiKey=${API_KEY}&filename=cell_towers.csv.gz" | gunzip | egrep "^($RADIO),($MCC),"  > $OCI_FILE &
+	OP=$!
+	wait $OP
+}
 
 cells_init()
 {
-
-	! d_exists "${CELLS_DIR}" && mkd "${CELLS_DIR}"
-	! d_exists "${CELLS_DIR}/.git" && git clone "${CELLS_GIT}" "${CELLS_DIR}"
-	! d_exists "${SDCARD}/.db" && mkd "${SDCARD}/.db"
-
+	export LACELLS_DB="${SDCARD}/lacells.db"
+	f_exists "${LACELLS_DB}" && mv -v "${LACELLS_DB}" "${LACELLS_DB}.bak"
 }
 
-cells_download()
-{
-
-	f_exists "${CELLS_DIR}/date" && export CELLS_DATE="$(source ${CELLS_DIR}/date)"
-
-	if [ ! "${CELLS_DATE}" -eq "$(date '+%d')" ]; then
-		secret && API_KEY="${API_KEY}" ./"${CELLS_BIN}" -d && date "+%d" > "${CELLS_DIR}/date"
-	fi
-
-}
 
 cells()
 {
 
 	cells_init
 
-	f_exists "${CELLS_DIR}/lacells.db" && rm -v "${CELLS_DIR}/lacells.db"
+	secret
 
-	cd "${CELLS_DIR}"
-	# secret && echo $API_KEY $MCC
-	# secret && API_KEY="${API_KEY}" ./"${CELLS_BIN}" -d -i -m -c"${MCC}" && date "+%d" > "${CELLS_DIR}/date"
-	f_exists "${CELLS_DIR}/lacells.db" && cp -v "${CELLS_DIR}/lacells.db" "${SDCARD}/.db/lacells.db"
+	export LACELLS_DATE="$(date '+%d')"
+	export API_KEY="${API_KEY}"
+	export MCC="${MCC}"
+	export OCI_FILE="${SDCARD}/ocid.${LACELLS_DATE}.csv"
+	export MOZ_FILE="${SDCARD}/mozilla.${LACELLS_DATE}.csv"
+
+	cd "${SDCARD}"
+
+	! f_exists "${MOZ_FILE}" && cells_download_mozilla
+	! f_exists "${OCI_FILE}" && cells_download_ocid
+
+	if [ -s $MOZ_FILE ] && [ -s $OCI_FILE ]; then
+
+	# rm lacells.db
+	echo "Generating database"
+
+	sqlite3 lacells.db <<-SQL
+	PRAGMA synchronous = OFF;
+	PRAGMA journal_mode = OFF;
+
+	CREATE TEMP TABLE cells_import (radio TEXT,mcc INTEGER,mnc INTEGER,lac INTEGER,cid INTEGER,unit STRING,longitude NUMERIC,latitude NUMERIC,accuracy INTEGER,samples INTEGER,changeable BOOLEAN,created INTEGER,updated INTEGER, avgSignal INTEGER);
+	CREATE TABLE cells (mcc INTEGER,mnc INTEGER,lac INTEGER,cid INTEGER,longitude REAL,latitude REAL,altitude REAL,accuracy REAL,samples INTEGER);
+
+	.header on
+	.mode csv
+
+	.import "$OCI_FILE" cells_import
+	.import "$MOZ_FILE" cells_import
+
+	UPDATE cells_import SET samples=1 WHERE samples IS NULL OR samples < 1;
+
+	INSERT INTO cells
+	SELECT mcc, mnc, lac, cid,
+	  sum(longitude * samples) / sum(samples) as longitude,
+	  sum(latitude  * samples) / sum(samples) as latitude,
+	  -1 as altitude,
+	  sum(accuracy  * samples) / sum(samples) as accuracy,
+	  sum(samples) as samples
+	FROM cells_import
+	GROUP BY mcc, mnc, lac, cid;
+
+	DROP TABLE cells_import;
+
+	UPDATE cells SET accuracy=500 WHERE accuracy < 500;
+	UPDATE cells SET accuracy=100000 WHERE accuracy > 100000;
+
+	CREATE INDEX _idx1 ON cells (mcc, mnc, lac, cid);
+	CREATE INDEX _idx2 ON cells (lac, cid);
+
+	VACUUM;
+	SQL
+
+	else
+	  echo "lacells db error"
+	fi
+
+	f_exists "lacells.db" && adb push "lacells.db" "${LACELLS_PUSH_LOCATION}"
+
 	cd "${MI5_ROOOT}"
-
 }
+
+
+
+
+# "${LACELLS_UTIL}"
+# f_exists "${CELLS_DIR}/lacells.db" && rm -v "${CELLS_DIR}/lacells.db"
+# cd "${CELLS_DIR}"
+# secret && echo $API_KEY $MCC
+# secret && API_KEY="${API_KEY}" ./"${CELLS_BIN}" -d -i -m -c"${MCC}" && date "+%d" > "${CELLS_DIR}/date"
+# f_exists "${CELLS_DIR}/lacells.db" && cp -v "${CELLS_DIR}/lacells.db" "${SDCARD}/.db/lacells.db"

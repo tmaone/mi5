@@ -5,7 +5,7 @@ SPLASH_FILE="$(basename ${SPLASH_IMG})"
 splash_enable()
 {
 	splash
-	! f_exists "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}" && cp -v "${SPLASH_IMG}" "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}"
+	cp -v "${SPLASH_IMG}" "${ANDROID_ROOT}/${SPLASH_PATH}/${SPLASH_FILE}"
 	! contains "${ANDROID_ROOT}/${SPLASH_FILESMAP}" "splash" && {
 		append "${ANDROID_ROOT}/${SPLASH_FILESMAP}" ''
 		append "${ANDROID_ROOT}/${SPLASH_FILESMAP}" 'splash.img              /dev/block/bootdevice/by-name/splash'

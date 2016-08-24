@@ -278,7 +278,7 @@ extras_enable()
 				append "${VENDOR_MK}" ''
 		}
 
-		! f_exists "${GEMINI_VENDOR}/framework/qcmediaplayer.jar" && cp -v "${EXTRAS_MOD_PATH}/qcmediaplayer.jar" "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar"
+		! f_exists "${GEMINI_VENDOR}/framework/qcmediaplayer.jar" && cp -vf "${EXTRAS_MOD_PATH}/qcmediaplayer.jar" "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar"
 
 		! contains "${VENDOR_MK}" "qcmediaplayer.jar" && {
 				append "${VENDOR_MK}" ''
