@@ -1,6 +1,6 @@
 EXTRAS_MOD_PATH="${MODS_DIR}/extras"
 
-# AMBIENT_CORE='AmbientCore.apk'
+AMBIENT_CORE='AmbientCore.apk'
 BOXER_CAL='BoxerCal.apk'
 BOXER_CM='BoxerCM.apk'
 GALLERY_NEXT='GalleryNext.apk'
@@ -22,7 +22,7 @@ extras_enable()
 {
 
 		! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
-		# ! f_exists "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}" && cp -v "${EXTRAS_MOD_PATH}/${AMBIENT_CORE}" "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}"
+		! f_exists "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}" && cp -v "${EXTRAS_MOD_PATH}/${AMBIENT_CORE}" "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}"
 		! f_exists "${GEMINI_VENDOR}/system/app/${BOXER_CAL}" && cp -v "${EXTRAS_MOD_PATH}/${BOXER_CAL}" "${GEMINI_VENDOR}/system/app/${BOXER_CAL}"
 		! f_exists "${GEMINI_VENDOR}/system/app/${BOXER_CM}" && cp -v "${EXTRAS_MOD_PATH}/${BOXER_CM}" "${GEMINI_VENDOR}/system/app/${BOXER_CM}"
 		! f_exists "${GEMINI_VENDOR}/system/app/${GALLERY_NEXT}" && cp -v "${EXTRAS_MOD_PATH}/${GALLERY_NEXT}" "${GEMINI_VENDOR}/system/app/${GALLERY_NEXT}"
@@ -33,25 +33,25 @@ extras_enable()
 		# ! f_exists "${GEMINI_VENDOR}/system/app/${DISCOVERY}" && cp -v "${EXTRAS_MOD_PATH}/${DISCOVERY}" "${GEMINI_VENDOR}/system/app/${DISCOVERY}"
 		# ! f_exists "${GEMINI_VENDOR}/system/app/${AMBIENT_UPDATER}" && cp -v "${EXTRAS_MOD_PATH}/${AMBIENT_UPDATER}" "${GEMINI_VENDOR}/system/app/${AMBIENT_UPDATER}"
 
-		# ! contains "${ANDROID_MK}" 'AmbientCore' && {
-		# 	append "${ANDROID_MK}" ''
-		# 	append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
-		# 	append "${ANDROID_MK}" ''
-		# 	append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE := AmbientCore'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
-		# 	append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/AmbientCore.apk'
-		# 	append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
-		# 	append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
-		# 	append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
-		# 	append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
-		# 	append "${ANDROID_MK}" ''
-		# 	append "${ANDROID_MK}" 'endif'
-		# 	append "${ANDROID_MK}" ''
-		# }
+		! contains "${ANDROID_MK}" 'AmbientCore' && {
+			append "${ANDROID_MK}" ''
+			append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+			append "${ANDROID_MK}" ''
+			append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+			append "${ANDROID_MK}" 'LOCAL_MODULE := AmbientCore'
+			append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+			append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/AmbientCore.apk'
+			append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+			append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+			append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+			append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+			append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+			append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+			append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+			append "${ANDROID_MK}" ''
+			append "${ANDROID_MK}" 'endif'
+			append "${ANDROID_MK}" ''
+		}
 
 		! contains "${ANDROID_MK}" 'BoxerCal' && {
 			append "${ANDROID_MK}" ''
@@ -229,11 +229,11 @@ extras_enable()
 		# 	append "${ANDROID_MK}" ''
 		# }
 
-		# ! contains "${VENDOR_MK}" 'AmbientCore' && {
-		# 	append "${VENDOR_MK}" ''
-		# 	append "${VENDOR_MK}" 'PRODUCT_PACKAGES += AmbientCore'
-		# 	append "${VENDOR_MK}" ''
-		# }
+		! contains "${VENDOR_MK}" 'AmbientCore' && {
+			append "${VENDOR_MK}" ''
+			append "${VENDOR_MK}" 'PRODUCT_PACKAGES += AmbientCore'
+			append "${VENDOR_MK}" ''
+		}
 
 		! contains "${VENDOR_MK}" 'BoxerCal' && {
 			append "${VENDOR_MK}" ''
@@ -276,22 +276,15 @@ extras_enable()
 				append "${VENDOR_MK}" ''
 				append "${VENDOR_MK}" 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/lib64/libqcmediaplayer.so:system/lib64/libqcmediaplayer.so'
 				append "${VENDOR_MK}" ''
-			}
-
 		}
 
-		dict_disable()
-		{
+		! f_exists "${GEMINI_VENDOR}/framework/qcmediaplayer.jar" && cp -v "${EXTRAS_MOD_PATH}/qcmediaplayer.jar" "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar"
 
-			# f_exists "${EN_US_DICT}.bak" && mv -v "${EN_US_DICT}.bak" "${EN_US_ORIGINAL}"
-			# f_exists "${EL_DICT}.bak" && mv -v "${EL_DICT}.bak" "${EL_ORIGINAL}"
-			# f_exists "${SV_DICT}.bak" && mv -v "${SV_DICT}.bak" "${SV_ORIGINAL}"
-			# f_exists "${EN_GB_DICT}.bak" && mv -v "${EN_GB_DICT}.bak" "${EN_GB_ORIGINAL}"
-
-			f_exists "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libjni_latinimegoogle.so"
-
-			f_exists "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so"
-			f_exists "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so" && rm -v "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so"
+		! contains "${VENDOR_MK}" "qcmediaplayer.jar" && {
+				append "${VENDOR_MK}" ''
+				append "${VENDOR_MK}" 'PRODUCT_COPY_FILES += vendor/xiaomi/gemini/proprietary/framework/qcmediaplayer.jar:system/framework/qcmediaplayer.jar'
+				append "${VENDOR_MK}" ''
+		}
 
 		# // ! contains "${VENDOR_MK}" 'ThemeStore' && {
 		# // 	append "${VENDOR_MK}" ''
@@ -318,15 +311,21 @@ extras_enable()
 
 extras_disable()
 {
+
 	f_exists "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}" && rm -v "${GEMINI_VENDOR}/system/app/${AMBIENT_CORE}"
 	f_exists "${GEMINI_VENDOR}/system/app/${BOXER_CAL}" && rm -v "${GEMINI_VENDOR}/system/app/${BOXER_CAL}"
 	f_exists "${GEMINI_VENDOR}/system/app/${BOXER_CM}" && rm -v "${GEMINI_VENDOR}/system/app/${BOXER_CM}"
 	f_exists "${GEMINI_VENDOR}/system/app/${GALLERY_NEXT}" && rm -v  "${GEMINI_VENDOR}/system/app/${GALLERY_NEXT}"
 	f_exists "${GEMINI_VENDOR}/system/app/${MODIO_FX}" && rm -v "${GEMINI_VENDOR}/system/app/${MODIO_FX}"
 	f_exists "${GEMINI_VENDOR}/system/app/${THEME_CHOOSE}" && rm -v  "${GEMINI_VENDOR}/system/app/${THEME_CHOOSE}"
-	# f_exists "${GEMINI_VENDOR}/system/app/${THEME_STORE}" && rm -v  "${GEMINI_VENDOR}/system/app/${THEME_STORE}"
+	f_exists "${GEMINI_VENDOR}/system/app/${THEME_STORE}" && rm -v  "${GEMINI_VENDOR}/system/app/${THEME_STORE}"
 	f_exists "${GEMINI_VENDOR}/system/app/${TWITTER_LOCK}" && rm -v "${GEMINI_VENDOR}/system/app/${TWITTER_LOCK}"
 	f_exists "${GEMINI_VENDOR}/system/app/${AMBIENT_UPDATER}" && rm -v "${GEMINI_VENDOR}/system/app/${AMBIENT_UPDATER}"
 	f_exists "${GEMINI_VENDOR}/system/app/${DISCOVERY}" && rm -v "${GEMINI_VENDOR}/system/app/${DISCOVERY}"
+
+	f_exists "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so" && rm -vf  "${GEMINI_VENDOR}/proprietary/lib/libqcmediaplayer.so"
+	f_exists "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so" && rm -vf "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so"
+	f_exists "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar" && rm -vf "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar"
+
 
 }

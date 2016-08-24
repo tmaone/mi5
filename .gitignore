@@ -1,9 +1,11 @@
 android
 ccache
 build
-rom
+rom/miui-rom
+rom/.miuirom
+rom/*.zip
 apk
 tmp
 sdcard
 .secret
-cells
+#cells
