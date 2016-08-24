@@ -16,16 +16,18 @@ ROM_UPDATE_UTIL="${GEMINI_DEVICE}/extract-files.sh"
 rom_enable()
 {
 	! f_exists "${ROM_KERNEL}" && unpack_boot
-	cp -v "${ROM_KERNEL}" "${KERNEL}"
+	# cp -v "${ROM_KERNEL}" "${KERNEL}"
 
 	for FW in "${RADIO_FW[@]}"
 	do
 		if f_exists "${ROM_RADIO}/${FW}"; then
-			cp -v "${ROM_RADIO}/${FW}" "${GEMINI_RADIO}/${FW}"
+			continue
+			#
+			# cp -v "${ROM_RADIO}/${FW}" "${GEMINI_RADIO}/${FW}"
 		fi
 	done
 
-	# no <3 
+	# no <3
 	# cd ${GEMINI_DEVICE} && echo ./"${ROM_UPDATE_UTIL}" "${MIUI_ROM_DIR}/system" "${ROM_RADIO}"
 
 }

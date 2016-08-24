@@ -6,6 +6,9 @@ rom/.miuirom
 rom/*.zip
 apk
 tmp
-sdcard
+sdcard/*.db
+sdcard/*.bak
+sdcard/*.csv
+sdcard/VocalizerEx
 .secret
 #cells

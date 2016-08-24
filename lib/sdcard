@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+export SDCARD_BASE="/sdcard"
+
+export SECRETS=".secrets"
+export TALK="VocalizerEx"
+export LACELLS="lacells.db"
+
+export SECRETS_TMP="${SDCARD}/${SECRETS}"
+
+export DEVICE_ID_UTIL="${MI5_ROOT}/util/android-checkin-1.0.jar"
+
+export LACELLS_PUSH='/sdcard/Android/data/org.fitchfamily.android.gsmlocation/files/'
+
+sdcard()
+{
+
+	cd "${SDCARD}"
+
+	secret
+
+	append "${SECRETS_TMP}" "OCID_API_KEY ${API_KEY}"
+	append "${SECRETS_TMP}" "MCC ${MCC}"
+	append "${SECRETS_TMP}" "MAPQUEST_API_KEY ${MAPQUEST}"
+	ANDROID_ID=`java -jar ${DEVICE_ID_UTIL} ${GOOGLE_USERNAME} ${GOOGLE_PASSWORD} 2>&1 >/dev/null | grep "AndroidId"`
+	append "${SECRETS_TMP}" "${ANDROID_ID}"
+
+	d_exists "${SDCARD}/${TALK}" && adb push "${TALK}" "${SDCARD_BASE}/"
+	f_exists "${SDCARD}/${LACELLS}" && adb push "${LACELLS}" "${LACELLS_PUSH}"
+	f_exists "${SDCARD}/${SECRETS}" && adb push "${SECRETS}" "${SDCARD_BASE}/.config/"
+
+	f_exists "${SDCARD}/${SECRETS}" && rm -v "${SDCARD}/${SECRETS}"
+
+	cd "${MI5_ROOOT}"
+
+}

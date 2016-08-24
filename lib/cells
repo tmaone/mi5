@@ -96,7 +96,7 @@ cells()
 	  echo "lacells db error"
 	fi
 
-	f_exists "lacells.db" && adb push "lacells.db" "${LACELLS_PUSH_LOCATION}"
+	# f_exists "lacells.db" && adb push "lacells.db" "${LACELLS_PUSH_LOCATION}"
 
 	cd "${MI5_ROOOT}"
 }
