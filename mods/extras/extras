@@ -327,5 +327,4 @@ extras_disable()
 	f_exists "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so" && rm -vf "${GEMINI_VENDOR}/proprietary/lib64/libqcmediaplayer.so"
 	f_exists "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar" && rm -vf "${GEMINI_VENDOR}/proprietary/framework/qcmediaplayer.jar"
 
-
 }

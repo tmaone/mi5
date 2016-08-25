@@ -175,6 +175,12 @@ microg_enable()
 		append "${VENDOR_MK}" ''
 	}
 
+	! contains "${VENDOR_MK}" 'NetworkLocation' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += NetworkLocation'
+		append "${VENDOR_MK}" ''
+	}
+
 }
 
 microg_disable()
