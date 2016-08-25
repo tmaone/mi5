@@ -30,4 +30,7 @@
   <!-- apps Fdroid no baked no good -->
   <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="github" revision="master" />
 
+  <!-- updated oandbackup -->
+  <project path="packages/apps/oandbackup" name="jensstein/oandbackup.git" remote="github" revision="master" />
+
 </manifest>
