@@ -38,15 +38,6 @@ rom_disable()
 }
 
 
-
-
-
-
-
-
-
-
-
 # MICROG_GMS='https://microg.org/fdroid/repo/com.google.android.gms-9452266.apk'
 # MICROG_GSF='https://microg.org/fdroid/repo/com.google.android.gsf-8.apk'
 # MICROG_NLP='https://f-droid.org/repo/com.google.android.gms_20170.apk'

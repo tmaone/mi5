@@ -1,5 +1,5 @@
 FDROID_URL_BASE='https://f-droid.org/repo'
-FDROID_APP='org.fdroid.fdroid_101005.apk'
+FDROID_APP='org.fdroid.fdroid_101006.apk'
 FDROID_MOD_PATH="${MODS_DIR}/fdroid"
 
 GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
