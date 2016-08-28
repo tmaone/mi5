@@ -27,9 +27,9 @@ sdcard()
 
 	d_exists "${SDCARD}/${TALK}" && adb push "${TALK}" "${SDCARD_BASE}/"
 	f_exists "${SDCARD}/${LACELLS}" && adb push "${LACELLS}" "${LACELLS_PUSH}"
-	f_exists "${SDCARD}/${SECRETS}" && adb push "${SECRETS}" "${SDCARD_BASE}/.config/"
+	# f_exists "${SDCARD}/${SECRETS}" && adb push "${SECRETS}" "${SDCARD_BASE}/.config/"
 
-	f_exists "${SDCARD}/${SECRETS}" && rm -v "${SDCARD}/${SECRETS}"
+	# f_exists "${SDCARD}/${SECRETS}" && rm -v "${SDCARD}/${SECRETS}"
 
 	cd "${MI5_ROOOT}"
 

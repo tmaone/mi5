@@ -1,6 +1,6 @@
 MICROG_MOD_PATH="${MODS_DIR}/microg"
 
-MICROG_GMS='https://microg.org/fdroid/repo/com.google.android.gms-9452266.apk'
+MICROG_GMS='https://microg.org/fdroid/repo/com.google.android.gms-9452267.apk'
 MICROG_GSF='https://microg.org/fdroid/repo/com.google.android.gsf-8.apk'
 MICROG_NLP='https://f-droid.org/repo/com.google.android.gms_20170.apk'
 
@@ -16,7 +16,7 @@ ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
 microg_enable()
 {
 
-	! f_exists "${MICROG_MOD_PATH}/com.google.android.gms-9452266.apk" && wget "${MICROG_GMS}" -c --show-progress -P "${MICROG_MOD_PATH}"
+	! f_exists "${MICROG_MOD_PATH}/com.google.android.gms-9452267.apk" && wget "${MICROG_GMS}" -c --show-progress -P "${MICROG_MOD_PATH}"
 	! f_exists "${MICROG_MOD_PATH}/com.google.android.gsf-8.apk" && wget "${MICROG_GSF}" -c --show-progress -P "${MICROG_MOD_PATH}"
 	! f_exists "${MICROG_MOD_PATH}/com.google.android.gms_20170.apk" && wget "${MICROG_NLP}" -c --show-progress -P "${MICROG_MOD_PATH}"
 
@@ -31,7 +31,7 @@ microg_enable()
 
 	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
 
-	! f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gms-9452266.apk" "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk"
+	! f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gms-9452267.apk" "${GEMINI_VENDOR}/system/app/com.google.android.gms.apk"
 	! f_exists "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gsf-8.apk" "${GEMINI_VENDOR}/system/app/com.google.android.gsf.apk"
 	! f_exists "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk" && cp -v "${MICROG_MOD_PATH}/com.google.android.gms_20170.apk" "${GEMINI_VENDOR}/system/app/org.microg.unifiednlp.apk"
 
@@ -175,11 +175,11 @@ microg_enable()
 		append "${VENDOR_MK}" ''
 	}
 
-	! contains "${VENDOR_MK}" 'NetworkLocation' && {
-		append "${VENDOR_MK}" ''
-		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += NetworkLocation'
-		append "${VENDOR_MK}" ''
-	}
+	# ! contains "${VENDOR_MK}" 'NetworkLocation' && {
+	# 	append "${VENDOR_MK}" ''
+	# 	append "${VENDOR_MK}" 'PRODUCT_PACKAGES += NetworkLocation'
+	# 	append "${VENDOR_MK}" ''
+	# }
 
 }
 
