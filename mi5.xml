@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 
+  <remote  name="lisas"
+           fetch="git://lisas.de" />
+
+  <remote fetch="git://codeaurora.org/quic/la/" name="caf" review="codeaurora.org"/>
+
   <!-- Custom -->
   <!-- add busybox from the cyanogenmod repository -->
   <project path="external/busybox" name="CyanogenMod/android_external_busybox" remote="github" revision="cm-13.0" />
@@ -32,5 +37,8 @@
 
   <!-- updated oandbackup -->
   <project path="packages/apps/oandbackup" name="jensstein/oandbackup.git" remote="github" revision="master" />
+
+  <!-- run init scripts -->
+  <project path="packages/apps/runuserinit" name="~alex/runuserinit.git" remote="lisas" revision="master" />
 
 </manifest>
