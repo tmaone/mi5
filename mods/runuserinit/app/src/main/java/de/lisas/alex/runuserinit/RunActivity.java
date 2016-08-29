@@ -51,14 +51,14 @@ public class RunActivity extends Activity {
     static void runAsRoot() {
         try {
             // Replace run-parts as it's gone with CM13
-            Process lsProcess = Runtime.getRuntime().exec(new String[] { "su", "-c", "ls /data/local/userinit.d/" });
+            Process lsProcess = Runtime.getRuntime().exec(new String[] { "su", "-c", "ls /data/local/init" });
             BufferedReader reader = new BufferedReader(new InputStreamReader(lsProcess.getInputStream()));
 
-            String initScript;
-            while ((initScript = reader.readLine()) != null) {
-                // You better take care that these scripts daemonize whatever they run
-                Process process = Runtime.getRuntime().exec(new String[] { "su", "-c", "/data/local/userinit.d/" + initScript });
-                process.waitFor();
+            String init_script;
+            while ((init_script = reader.readLine()) != null && init_script == "/data/local/init") {
+              // You better take care that these scripts daemonize whatever they run
+              Process process = Runtime.getRuntime().exec(new String[] { "su", "-c", init_script});
+              process.waitFor();
             }
 
             lsProcess.waitFor();

@@ -1,0 +1,49 @@
+INIT_MOD_PATH="${MODS_DIR}/runuserinit"
+
+INIT_APP="${INIT_MOD_PATH}/app/build/outputs/apk/app-release-unsigned.apk"
+
+GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
+VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
+ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+
+
+runuserinit_enable()
+{
+	! d_exists "${GEMINI_VENDOR}/system/app" && mkd "${GEMINI_VENDOR}/system/app"
+
+	! f_exists "${GEMINI_VENDOR}/system/app/runuserinit.apk" && cp -v "${INIT_APP}" "${GEMINI_VENDOR}/system/app/runuserinit.apk"
+
+	! contains "${ANDROID_MK}" 'runuserinit' && {
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'ifeq ($(TARGET_DEVICE),gemini)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'include $(CLEAR_VARS)'
+		append "${ANDROID_MK}" 'LOCAL_MODULE := runuserinit'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_OWNER := xiaomi'
+		append "${ANDROID_MK}" 'LOCAL_SRC_FILES := system/app/runuserinit.apk'
+		append "${ANDROID_MK}" 'LOCAL_CERTIFICATE := platform'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_TAGS := optional'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_CLASS := APPS'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_SUFFIX := .apk'
+		append "${ANDROID_MK}" 'LOCAL_PROPRIETARY_MODULE := true'
+		append "${ANDROID_MK}" 'LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/app'
+		append "${ANDROID_MK}" 'include $(BUILD_PREBUILT)'
+		append "${ANDROID_MK}" ''
+		append "${ANDROID_MK}" 'endif'
+		append "${ANDROID_MK}" ''
+	}
+
+	! contains "${VENDOR_MK}" 'runuserinit' && {
+		append "${VENDOR_MK}" ''
+		append "${VENDOR_MK}" 'PRODUCT_PACKAGES += runuserinit'
+		append "${VENDOR_MK}" ''
+	}
+
+}
+
+runuserinit_disable()
+{
+	f_exists "${GEMINI_VENDOR}/system/app/runuserinit.apk" && rm -v "${GEMINI_VENDOR}/system/app/runuserinit.apk"
+}
+
+#

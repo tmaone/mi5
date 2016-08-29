@@ -38,7 +38,7 @@
   <!-- updated oandbackup -->
   <project path="packages/apps/oandbackup" name="jensstein/oandbackup.git" remote="github" revision="master" />
 
-  <!-- run init scripts -->
-  <project path="packages/apps/runuserinit" name="~alex/runuserinit.git" remote="lisas" revision="master" />
+  <!-- run init scripts Integrated -->
+  <!-- <project path="packages/apps/runuserinit" name="~alex/runuserinit.git" remote="lisas" revision="master" /> -->
 
 </manifest>
