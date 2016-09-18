@@ -4,6 +4,7 @@
 ######################################
 export MIUI_FASTBOOT='gemini_global_images_6.8.18_20160805.0000.29_6.0_global_e3996a764f.tgz'
 export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
+export MIUI_ROM='miui_MI5Global_6.8.18_4a1d3f0dfc_6.0.zip'
 
 # 6.8.23
 ######################################
@@ -12,6 +13,11 @@ export MIUI_ROM='http://bigota.d.miui.com/6.8.23/miui_MI5_6.8.23_47e61a6323_6.0.
 # 6.8.25
 ######################################
 export MIUI_ROM='http://bigota.d.miui.com/6.8.25/miui_MI5Global_6.8.25_5a9ebd9518_6.0.zip'
+
+# 6.9.1
+######################################
+export MIUI_ROM='http://bigota.d.miui.com/6.9.1/miui_MI5Global_6.9.1_fdacfd87fd_6.0.zip'
+export MIUI_FASTBOOT='http://bigota.d.miui.com/6.9.1/gemini_global_images_6.9.1_20160805.0000.29_6.0_global_15c6339d4e.tgz'
 
 export DAT2IMG_UTIL="${MI5_ROOT}/util/sdat2img.py"
 export UNPACKBOOTIMG_UTIL="${MI5_ROOT}/util/unpackbootimg"

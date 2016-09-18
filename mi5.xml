@@ -4,7 +4,7 @@
   <remote  name="lisas"
            fetch="git://lisas.de" />
 
-  <remote fetch="git://codeaurora.org/quic/la/" name="caf" review="codeaurora.org"/>
+  <!-- <remote fetch="git://codeaurora.org/quic/la/" name="caf" review="codeaurora.org"/> -->
 
   <!-- Custom -->
   <!-- add busybox from the cyanogenmod repository -->

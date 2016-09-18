@@ -1,33 +1,21 @@
 KEYBACK_MOD_PATH="${MODS_DIR}/keyback"
 
-KEYLAYOUT="${INIT_MOD_PATH}/synaptics_dsx.kl"
+KEYLAYOUT="${KEYBACK_MOD_PATH}/synaptics_dsx.kl"
 
-GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
-VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
-ANDROID_MK="${GEMINI_VENDOR}/Android.mk"
+GEMINI_DEVICE="${ANDROID_ROOT}/device/xiaomi/gemini"
+
+KEYLAYOUT_TARGET="${GEMINI_DEVICE}/keylayout/synaptics_dsx.kl"
 
 
 keyback_enable()
 {
-
-
+	cp -v "${KEYLAYOUT}" "${KEYLAYOUT_TARGET}"
 }
-
-
-
-
-
-
-
-
 
 keyback_disable()
 {
-
-
+	return 0
 }
-
-
 
 
 #

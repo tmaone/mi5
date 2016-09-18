@@ -2,6 +2,8 @@ INIT_MOD_PATH="${MODS_DIR}/runuserinit"
 
 INIT_APP="${INIT_MOD_PATH}/app/build/outputs/apk/app-release-unsigned.apk"
 
+INIT_FILE="${INIT_MOD_PATH}/init"
+
 GEMINI_VENDOR="${ANDROID_ROOT}/vendor/xiaomi/gemini"
 VENDOR_MK="${GEMINI_VENDOR}/gemini-vendor.mk"
 ANDROID_MK="${GEMINI_VENDOR}/Android.mk"

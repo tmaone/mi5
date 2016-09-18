@@ -1,0 +1,11 @@
+#!/system/bin/sh
+
+logger()
+{
+  log -p i -t "dataInit" "${@}";
+}
+
+logger "[.] Data Init Scripts [.]"
+
+
+#
