@@ -110,9 +110,10 @@ setup_env()
 {
   # repo
   ! exists "${ANDROID_ROOT}/.repo" && cd "${ANDROID_ROOT}" && repo init -u "${CM_REPO}" -b "${CM_BRANCH}" --depth=1
-  ! exists "${ANDROID_ROOT}/.repo/local_manifests" && cd "${ANDROID_ROOT}/.repo" && git clone "${ANDROID_REPO}" "local_manifests"
+  ! exists "${ANDROID_ROOT}/.repo/local_manifests" && mkd "${ANDROID_ROOT}/.repo/local_manifests"
+  ! exists "${ANDROID_ROOT}/.repo/local_manifests/${MANIFEST}" && cp -v "${MI5_ROOT}/${MANIFEST}" "${ANDROID_ROOT}/.repo/local_manifests/roomservice.xml"
   # ! exists "${ANDROID_ROOT}/.repo/local_manifests/${MANIFEST}" && cp -v "${MI5_ROOT}/${MANIFEST}" "${ANDROID_ROOT}/.repo/local_manifests/${MANIFEST}"
-  cp -v "${MI5_ROOT}/${MANIFEST}" "${ANDROID_ROOT}/.repo/local_manifests/${MANIFEST}"
+  # cp -v "${MI5_ROOT}/${MANIFEST}" "${ANDROID_ROOT}/.repo/local_manifests/${MANIFEST}"
   # ccache
   ! exists "${ANDROID_CCACHE_DIR}/ccache.conf" && CCACHE_DIR="${ANDROID_CCACHE_DIR}" ccache -M "${ANDROID_CCACHE_SIZE}"
   cd "${MI5_ROOT}"

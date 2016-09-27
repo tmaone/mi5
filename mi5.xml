@@ -1,44 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 
-  <remote  name="lisas"
-           fetch="git://lisas.de" />
+  <remote fetch="https://source.codeaurora.org/quic/la/" name="caf" review="codeaurora.org"/>
 
-  <!-- <remote fetch="git://codeaurora.org/quic/la/" name="caf" review="codeaurora.org"/> -->
+  <!-- CyanogenMod -->
+  <project name="CyanogenMod/android_device_qcom_common" path="device/qcom/common" remote="github" />
+  <project name="CyanogenMod/android_vendor_nxp-nfc_opensource_frameworks" path="vendor/nxp-nfc/opensource/frameworks" remote="github" />
+  <project name="CyanogenMod/android_vendor_nxp-nfc_opensource_libnfc-nci" path="vendor/nxp-nfc/opensource/libnfc-nci" remote="github" />
+  <project name="CyanogenMod/android_vendor_nxp-nfc_opensource_Nfc" path="vendor/nxp-nfc/opensource/Nfc" remote="github" />
 
-  <!-- Custom -->
-  <!-- add busybox from the cyanogenmod repository -->
-  <project path="external/busybox" name="CyanogenMod/android_external_busybox" remote="github" revision="cm-13.0" />
+  <!-- Xiaomi -->
+  <!-- <project path="device/xiaomi/gemini" name="CyanogenMod/android_device_xiaomi_gemini" remote="github" /> -->
+  <!-- <project path="kernel/xiaomi/msm8996" name="CyanogenMod/android_kernel_xiaomi_msm8996" remote="github" /> -->
+  <!-- <project path="vendor/xiaomi" name="Mi5Devs/proprietary_vendor_xiaomi" remote="github" /> -->
 
-  <!-- add ProTips from the cyanogenmod repository -->
-  <project path="packages/apps/Protips" name="CyanogenMod/android_packages_apps_Protips" remote="github" revision="cm-13.0" />
+	<!-- Xiaomi -->
+  <project path="device/xiaomi/gemini" name="Mi5Devs/android_device_xiaomi_gemini" remote="github" />
+  <project path="kernel/xiaomi/msm8996" name="kernel/msm-3.18" remote="caf" revision="LA.HB.1.3.1" />
+  <project path="vendor/xiaomi" name="Mi5Devs/proprietary_vendor_xiaomi" remote="github" />
 
-  <!-- add YahooWeatherProvider from the cyanogenmod repository -->
+	<!-- add YahooWeatherProvider from the cyanogenmod repository -->
 	<remove-project name="CyanogenMod/android_packages_apps_YahooWeatherProvider"/>
   <project path="packages/apps/YahooWeatherProvider" name="CyanogenMod/android_packages_apps_YahooWeatherProvider" remote="github" revision="cm-13.0" />
-
-  <!-- add MicroG Not baked no good -->
-  <project path="packages/apps/GmsCore" name="microg/android_packages_apps_GmsCore" remote="github" revision="master" />
-  <project path="packages/apps/GsfProxy" name="microg/android_packages_apps_GsfProxy" remote="github" revision="master" />
-  <project path="packages/apps/FakeStore" name="microg/android_packages_apps_FakeStore" remote="github" revision="master" />
-
-  <!-- apps UnifiedNlp not baked no good -->
-  <project name="microg/android_packages_apps_UnifiedNlp" path="packages/apps/UnifiedNlp" remote="github" revision="master"/>
-  <project name="microg/android_external_UnifiedNlpApi" path="external/UnifiedNlpApi" remote="github" revision="master"/>
-  <project name="microg/android_external_MicroGUiTools" path="external/MicroGUiTools" remote="github" revision="master"/>
-
-  <!-- apps UnifiedNlp not baked no good -->
-  <project name="n76/NominatimGeocoderBackend" path="external/NominatimGeocoderBackend" remote="github" revision="issue4"/>
-  <project name="n76/Local-GSM-Backend" path="external/localgsmlocation" remote="github" revision="master"/>
-  <project name="n76/wifi_backend" path="external/localwifilocation" remote="github" revision="master"/>
-
-  <!-- apps Fdroid no baked no good -->
-  <project path="packages/apps/F-Droid" name="f-droid/fdroidclient" remote="github" revision="master" />
-
-  <!-- updated oandbackup -->
-  <project path="packages/apps/oandbackup" name="jensstein/oandbackup.git" remote="github" revision="master" />
-
-  <!-- run init scripts Integrated -->
-  <!-- <project path="packages/apps/runuserinit" name="~alex/runuserinit.git" remote="lisas" revision="master" /> -->
 
 </manifest>

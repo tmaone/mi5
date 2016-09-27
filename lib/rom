@@ -19,6 +19,17 @@ export MIUI_ROM='http://bigota.d.miui.com/6.8.25/miui_MI5Global_6.8.25_5a9ebd951
 export MIUI_ROM='http://bigota.d.miui.com/6.9.1/miui_MI5Global_6.9.1_fdacfd87fd_6.0.zip'
 export MIUI_FASTBOOT='http://bigota.d.miui.com/6.9.1/gemini_global_images_6.9.1_20160805.0000.29_6.0_global_15c6339d4e.tgz'
 
+# 6.9.8
+######################################
+export MIUI_ROM='http://bigota.d.miui.com/6.9.8/miui_MI5Global_6.9.8_d5849bd9c9_6.0.zip'
+export MIUI_FASTBOOT='http://bigota.d.miui.com/6.9.8/gemini_global_images_6.9.8_20160805.0000.29_6.0_global_e0a37893b1.tgz'
+
+# 6.9.22
+######################################
+export MIUI_ROM='http://bigota.d.miui.com/6.9.22/miui_MI5Global_6.9.22_f3dca81add_6.0.zip'
+export MIUI_FASTBOOT='http://bigota.d.miui.com/6.9.22/gemini_global_images_6.9.22_20160805.0000.29_6.0_global_5f6a025591.tgz'
+
+
 export DAT2IMG_UTIL="${MI5_ROOT}/util/sdat2img.py"
 export UNPACKBOOTIMG_UTIL="${MI5_ROOT}/util/unpackbootimg"
 
