@@ -1,0 +1,33 @@
+CONFIG_PATH="${MODS_DIR}/config"
+CONFIG_FILE="config.xml"
+
+CONFIG_MOD_PATH="${ANDROID_ROOT}/device/xiaomi/gemini/overlay/frameworks/base/core/res/res/values"
+
+config_enable()
+{
+
+	cp -v "${CONFIG_PATH}/${CONFIG_FILE}" "${CONFIG_MOD_PATH}/${CONFIG_FILE}"
+	# ! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}" && cp -v "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE1}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}"
+	# ! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}" && cp -v "${SPOOFSIG_MOD_BASE}/core/res/${SPOOFSIG_FILE2}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}"
+	# ! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" && cp -v "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE3}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}"
+	# ! f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" && cp -v "${SPOOFSIG_MOD_BASE}/services/core/java/com/android/server/pm/${SPOOFSIG_FILE4}" "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}"
+	#
+	# cp -v "${SPOOFSIG_PATCH}" "${SPOOFSIG_MOD_BASE}/$(basename ${SPOOFSIG_PATCH})"
+	# cd "${SPOOFSIG_MOD_BASE}" && patch -N -p1 < $(basename ${SPOOFSIG_PATCH})
+	# rm -v "${SPOOFSIG_MOD_BASE}/$(basename ${SPOOFSIG_PATCH})"
+	#
+	# find "${SPOOFSIG_MOD_BASE}" -name '*.orig' -exec rm -v '{}' \;
+	# find "${SPOOFSIG_MOD_BASE}" -name '*.rej' -exec rm -v '{}' \;
+
+}
+
+config_disable()
+{
+
+	return 0
+	# f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE1}" "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE1}"
+	# f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE2}" "${SPOOFSIG_MOD_BASE}/core/res/${SPOOFSIG_FILE2}"
+	# f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE3}" "${SPOOFSIG_MOD_BASE}/core/res/res/values/${SPOOFSIG_FILE3}"
+	# f_exists "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" && mv -v "${SPOOFSIG_PATH}/${SPOOFSIG_FILE4}" "${SPOOFSIG_MOD_BASE}/services/core/java/com/android/server/pm/${SPOOFSIG_FILE4}"
+
+}
